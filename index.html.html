@@ -61,16 +61,19 @@ nav {
 .hero-strip p { font-size: 14px; font-weight: 300; color: var(--spore); margin-top: 0.75rem; max-width: 500px; line-height: 1.7; }
 
 /* PHASE TABS */
-.phase-nav { background: var(--earth); display: flex; }
+.phase-nav { background: var(--earth); display: flex; border-bottom: 3px solid var(--moss); }
 .phase-btn {
-  flex: 1; padding: 1rem; font-family: 'DM Sans', sans-serif;
+  flex: 1; padding: 1.1rem 1rem; font-family: 'DM Sans', sans-serif;
   font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
   text-transform: uppercase; border: none; cursor: pointer;
-  background: transparent; color: rgba(245,240,232,0.4);
-  border-bottom: 2px solid transparent; transition: all 0.2s;
+  background: rgba(255,255,255,0.04); color: rgba(245,240,232,0.55);
+  border-bottom: 3px solid transparent; margin-bottom: -3px;
+  border-right: 1px solid rgba(157,171,132,0.12);
+  transition: all 0.2s;
 }
-.phase-btn:hover { color: var(--cream); }
-.phase-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+.phase-btn:last-child { border-right: none; }
+.phase-btn:hover { background: rgba(255,255,255,0.08); color: var(--cream); }
+.phase-btn.active { background: var(--moss); color: var(--gold); border-bottom-color: var(--gold); font-weight: 500; }
 
 /* MAIN LAYOUT */
 .main { max-width: 1100px; margin: 0 auto; padding: 2rem 2rem 4rem; }
@@ -99,16 +102,21 @@ input[type=range] {
   width: 100%; height: 4px; border-radius: 2px; outline: none;
   -webkit-appearance: none; appearance: none;
   background: linear-gradient(to right, var(--moss) 0%, var(--moss) var(--pct, 0%), var(--warm) var(--pct, 0%), var(--warm) 100%);
-  cursor: pointer;
+  cursor: pointer; touch-action: none;
 }
 input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none; width: 18px; height: 18px;
+  -webkit-appearance: none; width: 22px; height: 22px;
   border-radius: 50%; background: var(--earth);
-  border: 2px solid var(--gold); cursor: pointer;
+  border: 2px solid var(--gold); cursor: grab;
+  pointer-events: all;
 }
+input[type=range]::-webkit-slider-thumb:active { cursor: grabbing; }
 input[type=range]::-moz-range-thumb {
-  width: 18px; height: 18px; border-radius: 50%;
-  background: var(--earth); border: 2px solid var(--gold); cursor: pointer;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--earth); border: 2px solid var(--gold); cursor: grab;
+}
+input[type=range]::-moz-range-track {
+  height: 4px; border-radius: 2px; background: var(--warm);
 }
 
 /* SCENARIO TOGGLE */
@@ -181,8 +189,8 @@ input[type=range]::-moz-range-thumb {
 .contact-block { display: flex; flex-direction: column; gap: 10px; }
 .contact-item { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .contact-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-.contact-icon.email { background: rgba(196,149,58,0.15); }
-.contact-icon.wa { background: rgba(74,124,107,0.2); }
+.contact-icon.email { background: rgba(157,171,132,0.2); color: var(--spore); }
+.contact-icon.wa { background: rgba(157,171,132,0.2); color: var(--spore); }
 .contact-label { font-size: 13px; font-weight: 400; color: var(--cream); }
 .contact-label small { display: block; font-size: 11px; color: var(--spore); font-weight: 300; }
 .footer-disc { border-top: 0.5px solid rgba(157,171,132,0.15); margin-top: 2rem; padding-top: 1.5rem; max-width: 1100px; margin-left: auto; margin-right: auto; font-size: 11px; color: rgba(157,171,132,0.5); line-height: 1.7; }
@@ -200,7 +208,7 @@ input[type=range]::-moz-range-thumb {
 <body>
 
 <nav>
-  <div class="nav-logo">Mirath<span>.</span></div>
+  <div class="nav-logo">Mirath <span>Farms</span></div>
   <ul class="nav-links">
     <li><a href="#phase1">Phase 1</a></li>
     <li><a href="#phase2">Phase 2</a></li>
@@ -216,9 +224,9 @@ input[type=range]::-moz-range-thumb {
 </div>
 
 <div class="phase-nav">
-  <button class="phase-btn active" onclick="showPhase('p1',this)">Phase 1 — Lab &amp; Starter Land</button>
-  <button class="phase-btn" onclick="showPhase('p2',this)">Phase 2 — Full Farm Site</button>
-  <button class="phase-btn" onclick="showPhase('cmp',this)">Compare Phases</button>
+  <button class="phase-btn active" data-phase="p1">Phase 1 — Lab &amp; Starter Land</button>
+  <button class="phase-btn" data-phase="p2">Phase 2 — Full Farm Site</button>
+  <button class="phase-btn" data-phase="cmp">Compare Phases</button>
 </div>
 
 <div class="main">
@@ -234,7 +242,7 @@ input[type=range]::-moz-range-thumb {
           <label>Investment amount</label>
           <span class="val" id="p1-invest-val">100,000 AED</span>
         </div>
-        <input type="range" id="p1-invest" min="100000" max="500000" step="10000" value="100000" oninput="syncSlider(this);updateP1()">
+        <input type="range" id="p1-invest" min="100000" max="500000" step="10000" value="100000">
         <div class="slider-hint">Min 100,000 AED · Full raise 500,000 AED</div>
       </div>
       <div class="slider-group">
@@ -242,7 +250,7 @@ input[type=range]::-moz-range-thumb {
           <label>Sales capacity reached</label>
           <span class="val" id="p1-cap-val">40%</span>
         </div>
-        <input type="range" id="p1-cap" min="40" max="100" step="5" value="40" oninput="syncSlider(this);updateP1()">
+        <input type="range" id="p1-cap" min="40" max="100" step="5" value="40">
         <div class="slider-hint">40% = absolute floor · 100% = full documented capacity</div>
       </div>
       <div class="slider-group">
@@ -250,7 +258,7 @@ input[type=range]::-moz-range-thumb {
           <label>Sauce mix (% of chilli sales)</label>
           <span class="val" id="p1-sauce-val">20%</span>
         </div>
-        <input type="range" id="p1-sauce" min="20" max="75" step="5" value="20" oninput="syncSlider(this);updateP1()">
+        <input type="range" id="p1-sauce" min="20" max="75" step="5" value="20">
         <div class="slider-hint">20% = floor (mostly fresh/wholesale) · 70% = ideal (high margin)</div>
       </div>
       <div class="slider-group">
@@ -258,10 +266,10 @@ input[type=range]::-moz-range-thumb {
           <label>Scenario preset</label>
         </div>
         <div class="scenario-row">
-          <button class="scen-btn active" id="scen-floor" onclick="setP1Preset('floor',this)">Floor</button>
-          <button class="scen-btn" id="scen-worst" onclick="setP1Preset('worst',this)">Worst case</button>
-          <button class="scen-btn" id="scen-mid" onclick="setP1Preset('mid',this)">Midpoint</button>
-          <button class="scen-btn" id="scen-ideal" onclick="setP1Preset('ideal',this)">Ideal</button>
+          <button class="scen-btn active" id="scen-floor" data-preset="floor">Floor</button>
+          <button class="scen-btn" id="scen-worst" data-preset="worst">Worst case</button>
+          <button class="scen-btn" id="scen-mid" data-preset="mid">Midpoint</button>
+          <button class="scen-btn" id="scen-ideal" data-preset="ideal">Ideal</button>
         </div>
         <div class="slider-hint" id="p1-preset-label">40% capacity · 20% sauce — absolute floor</div>
       </div>
@@ -334,7 +342,7 @@ input[type=range]::-moz-range-thumb {
           <label>Your investment</label>
           <span class="val" id="p2-invest-val">500,000 AED</span>
         </div>
-        <input type="range" id="p2-invest" min="100000" max="2000000" step="50000" value="500000" oninput="syncSlider(this);updateP2()">
+        <input type="range" id="p2-invest" min="100000" max="2000000" step="50000" value="500000">
         <div class="slider-hint">Min 100,000 AED · up to 2,000,000 AED modelled</div>
       </div>
       <div class="slider-group">
@@ -342,7 +350,7 @@ input[type=range]::-moz-range-thumb {
           <label>Total Phase 2 raised</label>
           <span class="val" id="p2-total-val">5,500,000 AED</span>
         </div>
-        <input type="range" id="p2-total" min="1000000" max="5500000" step="100000" value="5500000" oninput="syncSlider(this);updateP2()">
+        <input type="range" id="p2-total" min="1000000" max="5500000" step="100000" value="5500000">
         <div class="slider-hint">Full raise 5,500,000 AED</div>
       </div>
       <div class="slider-group">
@@ -350,9 +358,9 @@ input[type=range]::-moz-range-thumb {
           <label>Farm revenue scenario</label>
         </div>
         <div class="scenario-row">
-          <button class="scen-btn active" id="p2-scen-worst" onclick="setP2Scen('worst',this)">Conservative</button>
-          <button class="scen-btn" id="p2-scen-mid" onclick="setP2Scen('mid',this)">Midpoint</button>
-          <button class="scen-btn" id="p2-scen-ideal" onclick="setP2Scen('ideal',this)">Ideal</button>
+          <button class="scen-btn active" id="p2-scen-worst" data-p2scen="worst">Conservative</button>
+          <button class="scen-btn" id="p2-scen-mid" data-p2scen="mid">Midpoint</button>
+          <button class="scen-btn" id="p2-scen-ideal" data-p2scen="ideal">Ideal</button>
         </div>
         <div class="slider-hint" id="p2-scen-label">Conservative — 1.8× Phase 1 revenue base</div>
       </div>
@@ -762,8 +770,51 @@ function showPhase(key, btn) {
   if(key==='cmp') updateCompare();
 }
 
-initSliders();
-updateP1();
+function showPhase(key, btn) {
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.phase-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+key).classList.add('active');
+  if(key==='p2') updateP2();
+  if(key==='cmp') updateCompare();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Phase tab buttons
+  document.querySelectorAll('.phase-btn[data-phase]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      showPhase(this.dataset.phase, this);
+    });
+  });
+
+  // P1 preset buttons
+  document.querySelectorAll('.scen-btn[data-preset]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      setP1Preset(this.dataset.preset, this);
+    });
+  });
+
+  // P2 scenario buttons
+  document.querySelectorAll('.scen-btn[data-p2scen]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      setP2Scen(this.dataset.p2scen, this);
+    });
+  });
+
+  // P1 sliders
+  document.getElementById('p1-invest').addEventListener('input', function() { syncSlider(this); updateP1(); });
+  document.getElementById('p1-cap').addEventListener('input',    function() { syncSlider(this); updateP1(); });
+  document.getElementById('p1-sauce').addEventListener('input',  function() { syncSlider(this); updateP1(); });
+
+  // P2 sliders
+  document.getElementById('p2-invest').addEventListener('input', function() { syncSlider(this); updateP2(); });
+  document.getElementById('p2-total').addEventListener('input',  function() { syncSlider(this); updateP2(); });
+
+  // Init
+  initSliders();
+  updateP1();
+});
 </script>
 </body>
 </html>
