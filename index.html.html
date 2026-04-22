@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mirath Farms — Investor Projections</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --earth: #2C2416; --moss: #3D4A2E; --sage: #7A8C5E;
+  --cream: #F5F0E8; --warm: #E8DFC8; --gold: #C4953A;
+  --spore: #9DAB84; --rust: #8B4A2B; --bond: #4A7C6B;
+  --ideal: #3D7A5E; --mid: #5A4E3C;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--earth);
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(61,74,46,0.97);
+  backdrop-filter: blur(8px);
+  padding: 1rem 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid rgba(157,171,132,0.15);
+}
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--cream); }
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--spore); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--cream); }
+
+/* HERO STRIP */
+.hero-strip {
+  background: var(--moss);
+  padding: 3rem 2.5rem 2.5rem;
+  position: relative; overflow: hidden;
+}
+.hero-strip::after {
+  content: '';
+  position: absolute; right: -60px; top: -60px;
+  width: 320px; height: 320px; border-radius: 50%;
+  border: 1px solid rgba(157,171,132,0.12);
+}
+.hero-strip::before {
+  content: '';
+  position: absolute; right: 20px; top: 20px;
+  width: 200px; height: 200px; border-radius: 50%;
+  border: 1px solid rgba(157,171,132,0.1);
+}
+.hero-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--spore); margin-bottom: 0.75rem; }
+.hero-strip h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 400; color: var(--cream); line-height: 1.15; max-width: 560px; }
+.hero-strip h1 em { font-style: italic; color: var(--gold); }
+.hero-strip p { font-size: 14px; font-weight: 300; color: var(--spore); margin-top: 0.75rem; max-width: 500px; line-height: 1.7; }
+
+/* PHASE TABS */
+.phase-nav { background: var(--earth); display: flex; }
+.phase-btn {
+  flex: 1; padding: 1rem; font-family: 'DM Sans', sans-serif;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; border: none; cursor: pointer;
+  background: transparent; color: rgba(245,240,232,0.4);
+  border-bottom: 2px solid transparent; transition: all 0.2s;
+}
+.phase-btn:hover { color: var(--cream); }
+.phase-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* MAIN LAYOUT */
+.main { max-width: 1100px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+
+/* NOTEBOOK CELL */
+.cell {
+  background: white; border: 0.5px solid rgba(44,36,22,0.12);
+  border-radius: 6px; padding: 1.5rem; margin-bottom: 1.25rem;
+}
+.cell-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--sage); margin-bottom: 1.1rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.cell-label::after { content: ''; flex: 1; height: 0.5px; background: rgba(44,36,22,0.1); }
+
+/* SLIDERS */
+.slider-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; }
+.slider-group { display: flex; flex-direction: column; gap: 6px; }
+.slider-top { display: flex; justify-content: space-between; align-items: baseline; }
+.slider-top label { font-size: 13px; color: var(--mid); font-weight: 400; }
+.slider-top .val { font-size: 16px; font-weight: 500; color: var(--earth); font-family: 'Playfair Display', serif; }
+.slider-hint { font-size: 11px; color: var(--sage); }
+
+input[type=range] {
+  width: 100%; height: 4px; border-radius: 2px; outline: none;
+  -webkit-appearance: none; appearance: none;
+  background: linear-gradient(to right, var(--moss) 0%, var(--moss) var(--pct, 0%), var(--warm) var(--pct, 0%), var(--warm) 100%);
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 18px; height: 18px;
+  border-radius: 50%; background: var(--earth);
+  border: 2px solid var(--gold); cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--earth); border: 2px solid var(--gold); cursor: pointer;
+}
+
+/* SCENARIO TOGGLE */
+.scenario-row { display: flex; gap: 6px; margin-bottom: 0; }
+.scen-btn {
+  flex: 1; padding: 8px; font-size: 12px; font-weight: 500;
+  border: 0.5px solid rgba(44,36,22,0.2); border-radius: 4px;
+  background: transparent; color: var(--mid); cursor: pointer; transition: all 0.15s;
+}
+.scen-btn.active { background: var(--earth); color: var(--cream); border-color: var(--earth); }
+
+/* METRIC CARDS */
+.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.metric { background: #F8F4EC; border-radius: 5px; padding: 1rem; }
+.metric .ml { font-size: 11px; color: var(--sage); font-weight: 400; letter-spacing: 0.04em; margin-bottom: 6px; }
+.metric .mv { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; color: var(--earth); line-height: 1; }
+.metric .ms { font-size: 11px; color: var(--sage); margin-top: 4px; }
+.metric.green .mv { color: var(--ideal); }
+.metric.gold .mv { color: var(--gold); }
+.metric.rust .mv { color: var(--rust); }
+
+/* CHART */
+.chart-wrap { position: relative; width: 100%; }
+.h240 { height: 240px; }
+.h200 { height: 200px; }
+.h180 { height: 180px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 10px; font-size: 12px; color: var(--mid); }
+.legend span { display: flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+
+/* OUTCOME CARDS */
+.outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.outcome-card { border: 0.5px solid rgba(44,36,22,0.12); border-radius: 6px; padding: 1.25rem; }
+.outcome-card h4 { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; }
+.outcome-row { display: flex; justify-content: space-between; font-size: 13px; padding: 5px 0; border-bottom: 0.5px solid rgba(44,36,22,0.06); }
+.outcome-row:last-child { border-bottom: none; font-weight: 500; padding-top: 8px; }
+.ov { font-weight: 500; }
+.ov.g { color: var(--ideal); }
+.ov.a { color: var(--gold); }
+.ov.r { color: var(--rust); }
+
+/* COVERAGE */
+.coverage-bar-track { height: 6px; background: var(--warm); border-radius: 3px; overflow: hidden; margin: 8px 0; }
+.coverage-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease, background 0.3s; }
+.coverage-note { font-size: 12px; color: var(--mid); line-height: 1.65; padding: 0.75rem 1rem; background: #F8F4EC; border-radius: 4px; margin-top: 0.75rem; }
+
+/* TWO COL */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+/* PHASE 2 */
+.p2-note { font-size: 13px; font-weight: 300; color: var(--mid); line-height: 1.75; padding: 1rem 1.25rem; background: rgba(61,74,46,0.05); border-left: 3px solid var(--sage); border-radius: 0 4px 4px 0; margin-top: 0.75rem; }
+
+/* COMPARE */
+.cmp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.cmp-card { border: 0.5px solid rgba(44,36,22,0.12); border-radius: 6px; padding: 1.25rem; }
+.cmp-card.featured { border: 2px solid var(--gold); }
+.cmp-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 4px; }
+.cmp-card .sub { font-size: 11px; color: var(--sage); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+
+/* HIDDEN */
+.phase-panel { display: none; }
+.phase-panel.active { display: block; }
+
+/* FOOTER */
+.footer { background: var(--earth); padding: 3rem 2.5rem; }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start; }
+.footer h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 400; color: var(--cream); margin-bottom: 0.5rem; }
+.footer p { font-size: 13px; font-weight: 300; color: var(--spore); line-height: 1.7; max-width: 460px; }
+.contact-block { display: flex; flex-direction: column; gap: 10px; }
+.contact-item { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.contact-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.contact-icon.email { background: rgba(196,149,58,0.15); }
+.contact-icon.wa { background: rgba(74,124,107,0.2); }
+.contact-label { font-size: 13px; font-weight: 400; color: var(--cream); }
+.contact-label small { display: block; font-size: 11px; color: var(--spore); font-weight: 300; }
+.footer-disc { border-top: 0.5px solid rgba(157,171,132,0.15); margin-top: 2rem; padding-top: 1.5rem; max-width: 1100px; margin-left: auto; margin-right: auto; font-size: 11px; color: rgba(157,171,132,0.5); line-height: 1.7; }
+
+@media (max-width: 700px) {
+  .slider-grid, .metrics, .two-col, .outcome-grid, .cmp-grid, .footer-inner { grid-template-columns: 1fr; }
+  .metrics { grid-template-columns: 1fr 1fr; }
+  .main { padding: 1.25rem 1rem 3rem; }
+  nav { padding: 1rem 1.25rem; }
+  .nav-links { display: none; }
+  .hero-strip { padding: 2rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Mirath<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#phase1">Phase 1</a></li>
+    <li><a href="#phase2">Phase 2</a></li>
+    <li><a href="#compare">Compare</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero-strip">
+  <div class="hero-tag">UAE Regenerative Cooperative — Interactive Investor Projections</div>
+  <h1>Model your return.<br><em>Discover the upside.</em></h1>
+  <p>Adjust the sliders to see exactly what your investment looks like — from the absolute floor to the ideal scenario. All figures are grounded in documented production capacity and real channel pricing.</p>
+</div>
+
+<div class="phase-nav">
+  <button class="phase-btn active" onclick="showPhase('p1',this)">Phase 1 — Lab &amp; Starter Land</button>
+  <button class="phase-btn" onclick="showPhase('p2',this)">Phase 2 — Full Farm Site</button>
+  <button class="phase-btn" onclick="showPhase('cmp',this)">Compare Phases</button>
+</div>
+
+<div class="main">
+
+<!-- ═══════════ PHASE 1 ═══════════ -->
+<div id="panel-p1" class="phase-panel active">
+
+  <div class="cell">
+    <div class="cell-label">Your investment inputs</div>
+    <div class="slider-grid">
+      <div class="slider-group">
+        <div class="slider-top">
+          <label>Investment amount</label>
+          <span class="val" id="p1-invest-val">100,000 AED</span>
+        </div>
+        <input type="range" id="p1-invest" min="100000" max="500000" step="10000" value="100000" oninput="syncSlider(this);updateP1()">
+        <div class="slider-hint">Min 100,000 AED · Full raise 500,000 AED</div>
+      </div>
+      <div class="slider-group">
+        <div class="slider-top">
+          <label>Sales capacity reached</label>
+          <span class="val" id="p1-cap-val">40%</span>
+        </div>
+        <input type="range" id="p1-cap" min="40" max="100" step="5" value="40" oninput="syncSlider(this);updateP1()">
+        <div class="slider-hint">40% = absolute floor · 100% = full documented capacity</div>
+      </div>
+      <div class="slider-group">
+        <div class="slider-top">
+          <label>Sauce mix (% of chilli sales)</label>
+          <span class="val" id="p1-sauce-val">20%</span>
+        </div>
+        <input type="range" id="p1-sauce" min="20" max="75" step="5" value="20" oninput="syncSlider(this);updateP1()">
+        <div class="slider-hint">20% = floor (mostly fresh/wholesale) · 70% = ideal (high margin)</div>
+      </div>
+      <div class="slider-group">
+        <div class="slider-top">
+          <label>Scenario preset</label>
+        </div>
+        <div class="scenario-row">
+          <button class="scen-btn active" id="scen-floor" onclick="setP1Preset('floor',this)">Floor</button>
+          <button class="scen-btn" id="scen-worst" onclick="setP1Preset('worst',this)">Worst case</button>
+          <button class="scen-btn" id="scen-mid" onclick="setP1Preset('mid',this)">Midpoint</button>
+          <button class="scen-btn" id="scen-ideal" onclick="setP1Preset('ideal',this)">Ideal</button>
+        </div>
+        <div class="slider-hint" id="p1-preset-label">40% capacity · 20% sauce — absolute floor</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="metrics" id="p1-metrics" style="margin-bottom:1.25rem;"></div>
+
+  <div class="cell">
+    <div class="cell-label">Monthly revenue build</div>
+    <div class="legend">
+      <span><i style="background:#3D7A5E"></i>Projected revenue</span>
+      <span><i style="background:rgba(196,149,58,0.5)"></i>Operating costs</span>
+      <span><i style="background:#8B4A2B;opacity:0.6"></i>Monthly return obligation</span>
+    </div>
+    <div class="chart-wrap h240"><canvas id="p1-monthly"></canvas></div>
+  </div>
+
+  <div class="two-col">
+    <div class="cell">
+      <div class="cell-label">Revenue by channel</div>
+      <div class="legend" id="p1-ch-leg"></div>
+      <div class="chart-wrap h180"><canvas id="p1-channel"></canvas></div>
+    </div>
+    <div class="cell">
+      <div class="cell-label">Cumulative profit vs obligation</div>
+      <div class="legend">
+        <span><i style="background:#3D7A5E"></i>Cumulative profit</span>
+        <span><i style="background:#C4953A"></i>Total obligation (30%)</span>
+      </div>
+      <div class="chart-wrap h180"><canvas id="p1-cumul"></canvas></div>
+    </div>
+  </div>
+
+  <div class="outcome-grid" style="margin-bottom:1.25rem;">
+    <div class="outcome-card">
+      <h4>Option A — Exit at month 12</h4>
+      <div class="outcome-row"><span>Capital returned</span><span class="ov" id="p1-cap-back">—</span></div>
+      <div class="outcome-row"><span>30% return</span><span class="ov g" id="p1-ret30">—</span></div>
+      <div class="outcome-row"><span>Total received</span><span class="ov g" id="p1-exit-tot">—</span></div>
+    </div>
+    <div class="outcome-card">
+      <h4>Option B — Roll to equity</h4>
+      <div class="outcome-row"><span>30% cash received</span><span class="ov g" id="p1-roll-cash">—</span></div>
+      <div class="outcome-row"><span>Equity stake</span><span class="ov a" id="p1-eq-pct">—</span></div>
+      <div class="outcome-row"><span>Est. annual profit share</span><span class="ov g" id="p1-profit-sh">—</span></div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="cell-label">Investor return coverage</div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;">
+      <span style="font-size:13px;color:var(--mid)">Net profit vs 30% obligation (150k per 500k raised)</span>
+      <span style="font-family:'Playfair Display',serif;font-size:26px;color:var(--earth)" id="p1-cov-num">—</span>
+    </div>
+    <div class="coverage-bar-track"><div class="coverage-bar-fill" id="p1-cov-bar"></div></div>
+    <div class="coverage-note" id="p1-cov-note"></div>
+  </div>
+
+</div>
+
+<!-- ═══════════ PHASE 2 ═══════════ -->
+<div id="panel-p2" class="phase-panel">
+
+  <div class="cell">
+    <div class="cell-label">Phase 2 investment inputs</div>
+    <div class="slider-grid">
+      <div class="slider-group">
+        <div class="slider-top">
+          <label>Your investment</label>
+          <span class="val" id="p2-invest-val">500,000 AED</span>
+        </div>
+        <input type="range" id="p2-invest" min="100000" max="2000000" step="50000" value="500000" oninput="syncSlider(this);updateP2()">
+        <div class="slider-hint">Min 100,000 AED · up to 2,000,000 AED modelled</div>
+      </div>
+      <div class="slider-group">
+        <div class="slider-top">
+          <label>Total Phase 2 raised</label>
+          <span class="val" id="p2-total-val">5,500,000 AED</span>
+        </div>
+        <input type="range" id="p2-total" min="1000000" max="5500000" step="100000" value="5500000" oninput="syncSlider(this);updateP2()">
+        <div class="slider-hint">Full raise 5,500,000 AED</div>
+      </div>
+      <div class="slider-group">
+        <div class="slider-top">
+          <label>Farm revenue scenario</label>
+        </div>
+        <div class="scenario-row">
+          <button class="scen-btn active" id="p2-scen-worst" onclick="setP2Scen('worst',this)">Conservative</button>
+          <button class="scen-btn" id="p2-scen-mid" onclick="setP2Scen('mid',this)">Midpoint</button>
+          <button class="scen-btn" id="p2-scen-ideal" onclick="setP2Scen('ideal',this)">Ideal</button>
+        </div>
+        <div class="slider-hint" id="p2-scen-label">Conservative — 1.8× Phase 1 revenue base</div>
+      </div>
+    </div>
+    <div class="p2-note">Phase 2 investors join a proven, operating business — farm acquisition is complete, Phase 1 revenue is live. You are buying into a larger asset base: houses, barns, poultry sites, orchards, composting infrastructure. Same profit share rights. No guaranteed Year-1 return — upside is ongoing and grows with the farm.</div>
+  </div>
+
+  <div class="metrics" id="p2-metrics" style="margin-bottom:1.25rem;"></div>
+
+  <div class="cell">
+    <div class="cell-label">5-year cumulative profit share projection</div>
+    <div class="legend">
+      <span><i style="background:#3D7A5E"></i>Cumulative profit share</span>
+      <span><i style="background:#C4953A"></i>Capital invested (reference line)</span>
+    </div>
+    <div class="chart-wrap h240"><canvas id="p2-cumul"></canvas></div>
+  </div>
+
+  <div class="outcome-grid" style="margin-bottom:1.25rem;">
+    <div class="outcome-card">
+      <h4>Your Phase 2 position</h4>
+      <div class="outcome-row"><span>Equity stake</span><span class="ov a" id="p2-stake">—</span></div>
+      <div class="outcome-row"><span>Governance votes</span><span class="ov" id="p2-votes">—</span></div>
+      <div class="outcome-row"><span>Year 1 est. profit share</span><span class="ov g" id="p2-y1">—</span></div>
+    </div>
+    <div class="outcome-card">
+      <h4>Growth trajectory</h4>
+      <div class="outcome-row"><span>Year 3 est. profit share</span><span class="ov g" id="p2-y3">—</span></div>
+      <div class="outcome-row"><span>Year 5 est. profit share</span><span class="ov g" id="p2-y5">—</span></div>
+      <div class="outcome-row"><span>5-yr cumulative return</span><span class="ov a" id="p2-5yr">—</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════ COMPARE ═══════════ -->
+<div id="panel-cmp" class="phase-panel">
+
+  <div class="cell">
+    <div class="cell-label">Same 100,000 AED — what does each phase offer?</div>
+    <div class="cmp-grid">
+      <div class="cmp-card featured">
+        <h3>Phase 1</h3>
+        <div class="sub">Early investor · SAFE instrument</div>
+        <div class="outcome-row"><span>Minimum</span><span class="ov">100,000 AED</span></div>
+        <div class="outcome-row"><span>Structure</span><span class="ov">SAFE (10M cap)</span></div>
+        <div class="outcome-row"><span>Equity per 100k</span><span class="ov a">2% of company</span></div>
+        <div class="outcome-row"><span>Year-1 guaranteed return</span><span class="ov g">+30% (130k back)</span></div>
+        <div class="outcome-row"><span>Option B profit share Y1</span><span class="ov g" id="cmp-p1-share">—</span></div>
+        <div class="outcome-row"><span>Risk level</span><span class="ov r">Higher (unproven)</span></div>
+        <div class="outcome-row"><span>Best for</span><span class="ov">Guaranteed return or equity upside</span></div>
+      </div>
+      <div class="cmp-card">
+        <h3>Phase 2</h3>
+        <div class="sub">Growth round · proven business</div>
+        <div class="outcome-row"><span>Minimum</span><span class="ov">100,000 AED</span></div>
+        <div class="outcome-row"><span>Structure</span><span class="ov">Direct equity</span></div>
+        <div class="outcome-row"><span>Equity per 100k</span><span class="ov a" id="cmp-p2-eq">—</span></div>
+        <div class="outcome-row"><span>Year-1 guaranteed return</span><span class="ov" style="color:var(--mid)">None</span></div>
+        <div class="outcome-row"><span>Est. Y1 profit share</span><span class="ov g" id="cmp-p2-share">—</span></div>
+        <div class="outcome-row"><span>Risk level</span><span class="ov" style="color:var(--sage)">Lower (proven ops)</span></div>
+        <div class="outcome-row"><span>Best for</span><span class="ov">Long-term income, lower risk</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="cell-label">Return comparison over 5 years — 100,000 AED invested</div>
+    <div class="legend">
+      <span><i style="background:#3D7A5E"></i>Phase 1 (Option B — roll to equity)</span>
+      <span><i style="background:#C4953A"></i>Phase 2 equity</span>
+      <span><i style="background:#7A8C5E;opacity:0.6"></i>Phase 1 (Option A exit — 130k)</span>
+    </div>
+    <div class="chart-wrap h240"><canvas id="cmp-chart"></canvas></div>
+  </div>
+
+  <div class="cell">
+    <div class="cell-label">Key differences</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      <div>
+        <div style="font-size:12px;font-weight:500;color:var(--moss);margin-bottom:6px;letter-spacing:0.06em;text-transform:uppercase;">Phase 1 advantages</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.8;">
+          · Guaranteed 30% return option<br>
+          · 2× equity premium vs later rounds<br>
+          · First right on Phase 2 participation<br>
+          · Option to fully exit at month 12<br>
+          · Highest equity % per AED
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:500;color:var(--bond);margin-bottom:6px;letter-spacing:0.06em;text-transform:uppercase;">Phase 2 advantages</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.8;">
+          · Joining proven, operating business<br>
+          · Larger physical asset base<br>
+          · Revenue already established<br>
+          · Lower execution risk<br>
+          · Long-term income stream from a larger farm
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER / CONTACT -->
+<div class="footer" id="contact">
+  <div class="footer-inner">
+    <div>
+      <h3>Ready to grow with us?</h3>
+      <p>Whether you're interested in Phase 1 equity, community bonds from 1,000 AED, or simply want to learn more — we'd love to hear from you.</p>
+    </div>
+    <div class="contact-block">
+      <a class="contact-item" href="mailto:mirathfarms@gmail.com">
+        <div class="contact-icon email">✉</div>
+        <div class="contact-label">mirathfarms@gmail.com<small>Email us</small></div>
+      </a>
+      <a class="contact-item" href="https://wa.me/971528369520">
+        <div class="contact-icon wa">✆</div>
+        <div class="contact-label">+971 (0) 528 369 520<small>WhatsApp</small></div>
+      </a>
+    </div>
+  </div>
+  <div class="footer-disc">
+    Mirath Farms Cooperative · UAE · All investment carries risk. Returns are subject to operating performance and UAE solvency requirements. This tool is for illustrative purposes only and does not constitute a financial prospectus or regulated investment advice. Projections are based on documented production capacity and channel pricing assumptions — actual results may vary. Governed by UAE law.
+  </div>
+</div>
+
+<script>
+const aed = n => 'AED ' + Math.round(n).toLocaleString('en-AE');
+const pc  = n => n.toFixed(2) + '%';
+let p1Charts = {}, p2Chart, cmpChart;
+let p2Scenario = 'worst';
+
+const PRESETS = {
+  floor:  { cap: 40, sauce: 20, label: '40% capacity · 20% sauce — absolute floor' },
+  worst:  { cap: 60, sauce: 40, label: '60% capacity · 40% sauce — documented worst case' },
+  mid:    { cap: 80, sauce: 55, label: '80% capacity · 55% sauce — midpoint' },
+  ideal:  { cap: 100, sauce: 70, label: '100% capacity · 70% sauce — ideal case' },
+};
+
+const P2_SCEN = {
+  worst: { multi: 1.8, costs: 2400000, label: 'Conservative — 1.8× Phase 1 revenue base' },
+  mid:   { multi: 3.0, costs: 2100000, label: 'Midpoint — 3.0× Phase 1 revenue base' },
+  ideal: { multi: 4.2, costs: 1800000, label: 'Ideal — 4.2× Phase 1 revenue base' },
+};
+
+function syncSlider(el) {
+  const min = +el.min, max = +el.max, val = +el.value;
+  const pct = ((val - min) / (max - min)) * 100;
+  el.style.setProperty('--pct', pct + '%');
+}
+
+function initSliders() {
+  document.querySelectorAll('input[type=range]').forEach(syncSlider);
+}
+
+function calcP1Rev(cap, sauceFrac) {
+  const maxChilli = 30000, maxMush = 2340;
+  const chilliSold = maxChilli * (cap / 100);
+  const mushSold   = maxMush  * (cap / 100);
+  const sauceRev   = chilliSold * sauceFrac * 120;
+  const freshRev   = chilliSold * 0.20 * 40;
+  const powderRev  = chilliSold * 0.10 * 80;
+  const wholesaleRev = chilliSold * (1 - sauceFrac - 0.20 - 0.10) * 20;
+  const chilliTotal = sauceRev + freshRev + powderRev + Math.max(0, wholesaleRev);
+  const mushProcessed = mushSold * 0.40 * 200;
+  const mushFresh     = mushSold * 0.20 * 80;
+  const mushDist      = mushSold * 0.40 * 40;
+  const mushTotal = mushProcessed + mushFresh + mushDist;
+  return { total: Math.round(chilliTotal + mushTotal), chilli: Math.round(chilliTotal), mush: Math.round(mushTotal) };
+}
+
+function calcP1Costs(cap) {
+  const fixed = 250000;
+  const variable = 180000 * (cap / 100);
+  return Math.round(fixed + variable);
+}
+
+function monthRamp(total) {
+  const shape = [0,0,0,0.04,0.08,0.12,0.17,0.20,0.24,0.28,0.32,0.35];
+  const s = shape.reduce((a,b)=>a+b,0);
+  return shape.map(v => Math.round(total * v / s));
+}
+
+function updateP1() {
+  const invest = +document.getElementById('p1-invest').value;
+  const cap    = +document.getElementById('p1-cap').value;
+  const sauce  = +document.getElementById('p1-sauce').value / 100;
+
+  document.getElementById('p1-invest-val').textContent = aed(invest);
+  document.getElementById('p1-cap-val').textContent    = cap + '%';
+  document.getElementById('p1-sauce-val').textContent  = Math.round(sauce*100) + '%';
+
+  const rev    = calcP1Rev(cap, sauce);
+  const costs  = calcP1Costs(cap);
+  const profit = rev.total - costs;
+  const oblig  = invest * 0.30;
+  const coverage = profit > 0 ? profit / oblig : 0;
+  const stakePct = (invest / 500000) * 10;
+  const profitShare = profit > 0 ? profit * (invest / 500000) : 0;
+
+  document.getElementById('p1-metrics').innerHTML = `
+    <div class="metric gold"><div class="ml">Projected revenue</div><div class="mv">${(rev.total/1000).toFixed(0)}k</div><div class="ms">AED Year 1</div></div>
+    <div class="metric"><div class="ml">Operating costs</div><div class="mv">${(costs/1000).toFixed(0)}k</div><div class="ms">AED Year 1</div></div>
+    <div class="metric ${profit>0?'green':'rust'}"><div class="ml">Net profit</div><div class="mv">${profit>0?(profit/1000).toFixed(0)+'k':'Loss'}</div><div class="ms">AED Year 1</div></div>
+    <div class="metric ${coverage>=3?'green':coverage>=1?'gold':'rust'}"><div class="ml">Coverage</div><div class="mv">${coverage>0?coverage.toFixed(1)+'x':'—'}</div><div class="ms">30% return covered</div></div>
+  `;
+
+  document.getElementById('p1-cap-back').textContent  = aed(invest);
+  document.getElementById('p1-ret30').textContent      = aed(oblig);
+  document.getElementById('p1-exit-tot').textContent   = aed(invest + oblig);
+  document.getElementById('p1-roll-cash').textContent  = aed(oblig);
+  document.getElementById('p1-eq-pct').textContent     = stakePct.toFixed(2) + '% of company';
+  document.getElementById('p1-profit-sh').textContent  = profit > 0 ? aed(profitShare) : 'Nil at this scenario';
+
+  const pctFill = Math.min(100, (Math.min(coverage,20)/20)*100);
+  document.getElementById('p1-cov-num').textContent = coverage > 0 ? coverage.toFixed(1)+'x' : 'Not covered';
+  document.getElementById('p1-cov-bar').style.width = pctFill + '%';
+  document.getElementById('p1-cov-bar').style.background = coverage>=3?'#3D7A5E':coverage>=1?'#C4953A':'#8B4A2B';
+  document.getElementById('p1-cov-note').textContent = coverage >= 3
+    ? `Strong position. Net profit covers the 30% obligation ${coverage.toFixed(1)}× — ${aed(profit - oblig)} remains distributable after paying investors.`
+    : coverage >= 1
+    ? `Covered. The ${aed(oblig)} obligation is met with ${aed(profit - oblig)} to spare. Increase capacity or sauce mix to improve headroom.`
+    : `At these settings, projected profit does not cover the 30% return. Move the sliders up to explore viable scenarios.`;
+
+  const months = ['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
+  const revData  = monthRamp(rev.total);
+  const costData = months.map((_,i) => Math.round(costs/12 * (i<3?1.3:1)));
+  const obligLine = months.map(() => Math.round(oblig/12));
+
+  if(p1Charts.monthly) p1Charts.monthly.destroy();
+  p1Charts.monthly = new Chart(document.getElementById('p1-monthly'), {
+    type:'bar',
+    data:{ labels:months, datasets:[
+      { label:'Revenue', data:revData, backgroundColor:'#3D7A5E', borderRadius:2 },
+      { label:'Costs', data:costData, backgroundColor:'rgba(196,149,58,0.45)', borderRadius:2 },
+      { type:'line', label:'Monthly obligation', data:obligLine, borderColor:'#8B4A2B', borderWidth:1.5, borderDash:[4,3], pointRadius:0 }
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{
+        x:{ ticks:{ font:{size:11}, color:'#7A6E5C' }, grid:{ display:false } },
+        y:{ ticks:{ font:{size:11}, color:'#7A6E5C', callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v }, grid:{ color:'rgba(44,36,22,0.05)' } }
+      }
+    }
+  });
+
+  document.getElementById('p1-ch-leg').innerHTML = `
+    <span><i style="background:#3D4A2E"></i>Chilli & sauce ${aed(rev.chilli)}</span>
+    <span><i style="background:#9DAB84"></i>Mushroom ${aed(rev.mush)}</span>
+  `;
+  if(p1Charts.channel) p1Charts.channel.destroy();
+  p1Charts.channel = new Chart(document.getElementById('p1-channel'), {
+    type:'doughnut',
+    data:{ labels:['Chilli & sauce','Mushroom'],
+      datasets:[{ data:[rev.chilli, rev.mush], backgroundColor:['#3D4A2E','#9DAB84'], borderWidth:0, hoverOffset:4 }]
+    },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'62%', plugins:{ legend:{ display:false } } }
+  });
+
+  const cumRev = revData.map((_,i) => Math.round(revData.slice(0,i+1).reduce((a,b)=>a+b,0)));
+  const cumCost = costData.map((_,i) => Math.round(costData.slice(0,i+1).reduce((a,b)=>a+b,0)));
+  const cumProfit = cumRev.map((r,i) => r - cumCost[i]);
+  const obligTotal = months.map(() => oblig);
+
+  if(p1Charts.cumul) p1Charts.cumul.destroy();
+  p1Charts.cumul = new Chart(document.getElementById('p1-cumul'), {
+    type:'line',
+    data:{ labels:months, datasets:[
+      { label:'Cumulative profit', data:cumProfit, borderColor:'#3D7A5E', backgroundColor:'rgba(61,122,94,0.07)', fill:true, tension:0.4, pointRadius:2 },
+      { label:'Obligation', data:obligTotal, borderColor:'#C4953A', borderDash:[5,3], pointRadius:0, borderWidth:1.5 }
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{
+        x:{ ticks:{ font:{size:11}, color:'#7A6E5C' }, grid:{ display:false } },
+        y:{ ticks:{ font:{size:11}, color:'#7A6E5C', callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v }, grid:{ color:'rgba(44,36,22,0.05)' } }
+      }
+    }
+  });
+}
+
+function setP1Preset(key, btn) {
+  document.querySelectorAll('.scen-btn[id^=scen]').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const p = PRESETS[key];
+  const capEl = document.getElementById('p1-cap');
+  const sauceEl = document.getElementById('p1-sauce');
+  capEl.value = p.cap; sauceEl.value = p.sauce;
+  syncSlider(capEl); syncSlider(sauceEl);
+  document.getElementById('p1-preset-label').textContent = p.label;
+  updateP1();
+}
+
+function updateP2() {
+  const invest = +document.getElementById('p2-invest').value;
+  const total  = +document.getElementById('p2-total').value;
+  document.getElementById('p2-invest-val').textContent = aed(invest);
+  document.getElementById('p2-total-val').textContent  = aed(total);
+
+  const sc = P2_SCEN[p2Scenario];
+  const p1Base = 1262790;
+  const p2Rev  = p1Base * sc.multi;
+  const combined = p1Base + p2Rev;
+  const netProfit = combined - sc.costs - 430000;
+  const stakePct = (invest / total) * 80;
+  const y1Share = Math.max(0, netProfit * (invest/total));
+  const y3Profit = netProfit * 1.5625;
+  const y5Profit = netProfit * 2.441;
+  const y3Share  = Math.max(0, y3Profit * (invest/total));
+  const y5Share  = Math.max(0, y5Profit * (invest/total));
+  const votes    = Math.max(1, Math.round(stakePct));
+
+  const cumulShares = [1,2,3,4,5].map(yr => {
+    let sum = 0;
+    for(let y=1;y<=yr;y++) sum += Math.max(0, netProfit * Math.pow(1.25,y-1) * (invest/total));
+    return Math.round(sum);
+  });
+
+  document.getElementById('p2-metrics').innerHTML = `
+    <div class="metric gold"><div class="ml">Combined revenue (P1+P2)</div><div class="mv">${(combined/1000000).toFixed(1)}M</div><div class="ms">AED est. Year 1</div></div>
+    <div class="metric green"><div class="ml">Combined net profit</div><div class="mv">${(Math.max(0,netProfit)/1000000).toFixed(1)}M</div><div class="ms">AED est. Year 1</div></div>
+    <div class="metric"><div class="ml">Your stake</div><div class="mv">${stakePct.toFixed(2)}%</div><div class="ms">of company</div></div>
+    <div class="metric green"><div class="ml">Year 1 profit share</div><div class="mv">${(Math.max(0,y1Share)/1000).toFixed(0)}k</div><div class="ms">AED est.</div></div>
+  `;
+
+  document.getElementById('p2-stake').textContent  = stakePct.toFixed(3) + '% of company';
+  document.getElementById('p2-votes').textContent  = votes + ' out of 100 total';
+  document.getElementById('p2-y1').textContent     = aed(Math.max(0,y1Share));
+  document.getElementById('p2-y3').textContent     = aed(Math.max(0,y3Share));
+  document.getElementById('p2-y5').textContent     = aed(Math.max(0,y5Share));
+  document.getElementById('p2-5yr').textContent    = aed(cumulShares[4]);
+
+  if(p2Chart) p2Chart.destroy();
+  p2Chart = new Chart(document.getElementById('p2-cumul'), {
+    type:'line',
+    data:{ labels:['Year 1','Year 2','Year 3','Year 4','Year 5'],
+      datasets:[
+        { label:'Cumulative profit share', data:cumulShares, borderColor:'#3D7A5E', backgroundColor:'rgba(61,122,94,0.07)', fill:true, tension:0.4, pointRadius:4, pointBackgroundColor:'#3D7A5E' },
+        { label:'Capital invested', data:[invest,invest,invest,invest,invest], borderColor:'#C4953A', borderDash:[5,3], pointRadius:0, borderWidth:1.5 }
+      ]
+    },
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{
+        x:{ ticks:{ font:{size:12}, color:'#7A6E5C' }, grid:{ display:false } },
+        y:{ ticks:{ font:{size:11}, color:'#7A6E5C', callback:v=>v>=1000000?(v/1000000).toFixed(1)+'M':v>=1000?(v/1000).toFixed(0)+'k':v }, grid:{ color:'rgba(44,36,22,0.05)' } }
+      }
+    }
+  });
+}
+
+function setP2Scen(key, btn) {
+  p2Scenario = key;
+  document.querySelectorAll('[id^=p2-scen]').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('p2-scen-label').textContent = P2_SCEN[key].label;
+  updateP2();
+}
+
+function updateCompare() {
+  const invest = 100000;
+  const p1Rev = calcP1Rev(100, 0.70);
+  const p1Costs = calcP1Costs(100);
+  const p1Profit = p1Rev.total - p1Costs;
+  const p1Share = Math.max(0, p1Profit * (invest/500000));
+  const stakePct = (invest/500000)*10;
+
+  const p2Net = (1262790 + 1262790*4.2) - 1800000 - 430000;
+  const p2Stake = (invest/5500000)*80;
+  const p2Share = Math.max(0, p2Net * (invest/5500000));
+
+  document.getElementById('cmp-p1-share').textContent = aed(p1Share);
+  document.getElementById('cmp-p2-eq').textContent    = p2Stake.toFixed(3) + '% of company';
+  document.getElementById('cmp-p2-share').textContent = aed(p2Share);
+
+  const years = ['Y1','Y2','Y3','Y4','Y5'];
+  const p1Roll = years.map((_,i) => Math.round(i===0 ? 30000 + p1Share : 30000 + p1Share * Math.pow(1.25,i)));
+  const p1Exit = [130000,130000,130000,130000,130000];
+  const p2Eq   = years.map((_,i) => Math.round(p2Share * Math.pow(1.25,i)));
+
+  if(cmpChart) cmpChart.destroy();
+  cmpChart = new Chart(document.getElementById('cmp-chart'), {
+    type:'bar',
+    data:{ labels:years, datasets:[
+      { label:'Phase 1 roll to equity', data:p1Roll, backgroundColor:'#3D7A5E', borderRadius:3 },
+      { label:'Phase 2 equity', data:p2Eq, backgroundColor:'#C4953A', borderRadius:3 },
+      { label:'Phase 1 exit (fixed)', data:p1Exit, backgroundColor:'rgba(122,140,94,0.5)', borderRadius:3 }
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{
+        x:{ ticks:{ font:{size:12}, color:'#7A6E5C' }, grid:{ display:false } },
+        y:{ ticks:{ font:{size:11}, color:'#7A6E5C', callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v }, grid:{ color:'rgba(44,36,22,0.05)' } }
+      }
+    }
+  });
+}
+
+function showPhase(key, btn) {
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.phase-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+key).classList.add('active');
+  if(key==='p2') updateP2();
+  if(key==='cmp') updateCompare();
+}
+
+initSliders();
+updateP1();
+</script>
+</body>
+</html>
