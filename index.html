@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)file:///C:/Users/USER/Downloads/mirath-farms-portal-v5.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mirath Farms — Investment Opportunities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./index_files/css2" rel="stylesheet">
+<style>
+/* ─── TOKENS ─────────────────────────────────────────────────── */
+:root {
+  /* UAE palette — deep warm earth */
+  --soil:      #1a1409;
+  --soil-2:    #231c0c;
+  --soil-3:    #2e2510;
+  --soil-4:    #3a2f16;
+  --gold:      #c9961e;
+  --gold-lt:   #e8b84b;
+  --gold-dk:   #8a6510;
+  --wheat:     #f0e4c2;
+  --wheat-2:   #e8d8a8;
+  --cream:     #faf4e6;
+  --ink:       #f5ecd6;
+  --ink-2:     #d4c49a;
+  --muted:     #8a7a58;
+  --border:    #3a3018;
+  --border-lt: #4a3e20;
+
+  /* Madagascar palette — deeper contrasts */
+  --mad-bg:    #0e1a0a;
+  --mad-2:     #152212;
+  --mad-3:     #1c2e18;
+  --mad-red:   #c44020;
+  --mad-red-lt:#e86840;
+  --mad-green: #3a7a20;
+  --mad-green-lt:#5aa038;
+  --mad-teal:  #1a8080;
+  --mad-wheat: #e8f0d8;
+  --mad-ink:   #e4f0d4;
+  --mad-muted: #6a8458;
+  --mad-border:#283820;
+
+  --radius: 3px;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Instrument Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+/* ─── RESET ──────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:18px;scroll-behavior:smooth}
+body{
+  background:var(--soil);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-weight:400;
+  line-height:1.7;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+  overflow-x:hidden;
+}
+@media print{.no-print{display:none!important}body{padding-top:0!important}.tab-panel{display:block!important}}
+img{max-width:100%;display:block}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold-lt)}
+strong{color:var(--wheat);font-weight:600}
+p{margin-bottom:1em;color:var(--ink-2);font-size:1rem;line-height:1.75}
+p:last-child{margin-bottom:0}
+h1,h2,h3,h4,h5{font-family:var(--font-display);line-height:1.05;color:var(--wheat)}
+hr{border:none;border-top:1px solid var(--border);margin:3rem 0}
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.container{max-width:960px;margin:0 auto;padding:0 2.5rem}
+.container-wide{max-width:1100px;margin:0 auto;padding:0 2.5rem}
+@media(max-width:640px){.container,.container-wide{padding:0 1.25rem}}
+section{padding:6rem 0;border-bottom:1px solid var(--border)}
+section:last-of-type{border-bottom:none}
+
+/* ─── NAV ────────────────────────────────────────────────────── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  background:rgba(26,20,9,0.96);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding-top:0;
+}
+.nav-top{
+  height:54px;display:flex;align-items:center;
+  padding:0 2.5rem;gap:2rem;
+}
+.nav-brand{
+  font-family:var(--font-display);
+  font-size:1.15rem;font-weight:700;
+  color:var(--wheat);margin-right:auto;letter-spacing:0.01em;
+}
+.nav-top a{
+  font-family:var(--font-mono);font-size:0.6rem;
+  letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);
+  transition:color 0.15s;
+}
+.nav-top a:hover{color:var(--gold)}
+.nav-print{
+  font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;
+  text-transform:uppercase;background:none;
+  border:1px solid var(--gold-dk);color:var(--gold);
+  padding:5px 13px;cursor:pointer;transition:all 0.15s;
+}
+.nav-print:hover{background:var(--gold);color:var(--soil)}
+.tab-bar{
+  display:flex;border-top:1px solid var(--border);
+  padding:0 2.5rem;gap:0;
+}
+.tab-btn{
+  font-family:var(--font-mono);font-size:0.62rem;
+  letter-spacing:0.16em;text-transform:uppercase;
+  background:none;border:none;cursor:pointer;
+  padding:0.7rem 1.6rem 0.7rem 0;
+  color:var(--muted);border-bottom:2px solid transparent;
+  margin-bottom:-1px;transition:color 0.15s;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.tab-btn:hover{color:var(--gold)}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-btn.mad.active{color:var(--mad-green-lt);border-bottom-color:var(--mad-green-lt)}
+body{padding-top:92px}
+@media(max-width:640px){.nav-top a{display:none};body{padding-top:92px}}
+
+/* ─── TAB PANELS ─────────────────────────────────────────────── */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ─── COVER ──────────────────────────────────────────────────── */
+.cover{
+  min-height:92vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+.cover-texture{
+  position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(
+      172deg,
+      transparent 0,transparent 22px,
+      rgba(201,150,30,0.04) 22px,rgba(201,150,30,0.04) 44px,
+      transparent 44px,transparent 46px,
+      rgba(58,47,22,0.06) 46px,rgba(58,47,22,0.06) 47px
+    );
+}
+.cover-vignette{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 80%,
+    rgba(26,20,9,0.98) 30%,
+    rgba(26,20,9,0.7) 60%,
+    rgba(26,20,9,0.3) 100%);
+}
+.cover-content{
+  position:relative;z-index:2;
+  padding:0 2.5rem 5rem;
+  max-width:960px;margin:0 auto;width:100%;
+}
+@media(max-width:640px){.cover-content{padding:0 1.25rem 3.5rem}}
+
+.cover-kicker{
+  font-family:var(--font-mono);font-size:0.6rem;
+  letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dk);
+  margin-bottom:2rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.cover-kicker::before{content:'';width:40px;height:1px;background:var(--gold-dk)}
+
+.cover-h1{
+  font-family:var(--font-display);
+  font-size:clamp(4.5rem,11vw,9rem);
+  font-weight:900;color:var(--wheat);
+  line-height:0.88;letter-spacing:-0.03em;
+  margin-bottom:0.5rem;
+}
+.cover-h1 em{color:var(--gold);font-style:italic;font-weight:400}
+
+.cover-tagline{
+  font-family:var(--font-display);
+  font-size:clamp(1rem,2vw,1.35rem);
+  font-weight:400;font-style:italic;
+  color:var(--muted);margin-bottom:3.5rem;
+}
+
+.cover-stats{
+  display:flex;flex-wrap:wrap;
+  border:1px solid var(--border);
+  background:rgba(35,28,12,0.8);
+  backdrop-filter:blur(8px);
+}
+.cs{
+  flex:1;min-width:110px;
+  padding:1.1rem 1.4rem;
+  border-right:1px solid var(--border);
+}
+.cs:last-child{border-right:none}
+.cs-label{
+  font-family:var(--font-mono);font-size:0.55rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:0.35rem;
+}
+.cs-val{
+  font-family:var(--font-display);font-size:1.6rem;
+  font-weight:700;color:var(--gold);line-height:1;
+}
+
+/* ─── SECTION EYEBROW ────────────────────────────────────────── */
+.eyebrow{
+  font-family:var(--font-mono);font-size:0.58rem;
+  letter-spacing:0.28em;text-transform:uppercase;color:var(--gold-dk);
+  margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:0.8rem;
+}
+.eyebrow::after{content:'';flex:1;height:1px;background:var(--border)}
+.eyebrow.green{color:var(--mad-green)}
+.eyebrow.red{color:var(--mad-red)}
+.eyebrow.teal{color:var(--mad-teal)}
+
+/* ─── HERO STATEMENTS — the big readable moments ─────────────── */
+.hero-statement{
+  font-family:var(--font-display);
+  font-size:clamp(2.2rem,5vw,4rem);
+  font-weight:700;color:var(--wheat);
+  line-height:1.08;letter-spacing:-0.02em;
+  margin-bottom:2rem;
+}
+.hero-statement em{color:var(--gold);font-style:italic}
+
+.pull-quote{
+  font-family:var(--font-display);
+  font-size:clamp(1.3rem,2.5vw,1.8rem);
+  font-weight:400;font-style:italic;
+  color:var(--wheat-2);line-height:1.4;
+  border-left:3px solid var(--gold);
+  padding:1rem 0 1rem 1.8rem;
+  margin:3rem 0;
+}
+
+/* ─── STAT BLOCKS ────────────────────────────────────────────── */
+.stat-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);margin:3rem 0;
+}
+.sb{background:var(--soil-2);padding:1.6rem 1.5rem}
+.sb-label{
+  font-family:var(--font-mono);font-size:0.55rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:0.5rem;
+}
+.sb-val{
+  font-family:var(--font-display);
+  font-size:2.4rem;font-weight:700;color:var(--gold);line-height:1;
+}
+.sb-val.green{color:var(--mad-green-lt)}
+.sb-val.red{color:var(--mad-red)}
+.sb-val.teal{color:var(--mad-teal)}
+.sb-sub{font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);margin-top:0.4rem}
+
+/* ─── CALLOUT ────────────────────────────────────────────────── */
+.callout{
+  background:var(--soil-3);
+  border:1px solid var(--border-lt);
+  border-left:3px solid var(--gold);
+  padding:1.6rem 2rem;margin:2.5rem 0;
+}
+.callout h4{
+  font-family:var(--font-mono);font-size:0.62rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.7rem;
+}
+.callout p{font-size:0.95rem;color:var(--ink-2)}
+.callout.green{border-left-color:var(--mad-green-lt)}
+.callout.green h4{color:var(--mad-green-lt)}
+.callout.red{border-left-color:var(--mad-red)}
+.callout.red h4{color:var(--mad-red)}
+.callout.teal{border-left-color:var(--mad-teal)}
+.callout.teal h4{color:var(--mad-teal)}
+
+/* ─── OPTION CARDS ───────────────────────────────────────────── */
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2.5rem 0}
+@media(max-width:580px){.card-grid{grid-template-columns:1fr}}
+
+.card{
+  background:var(--soil-2);
+  border:1px solid var(--border);
+  padding:2rem;position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--gold);
+}
+.card.b::before{background:var(--mad-green)}
+.card.red::before{background:var(--mad-red)}
+.card.green::before{background:var(--mad-green)}
+.card.teal::before{background:var(--mad-teal)}
+
+.card-label{
+  font-family:var(--font-mono);font-size:0.58rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.5rem;
+}
+.card.b .card-label{color:var(--mad-green-lt)}
+.card.red .card-label{color:var(--mad-red)}
+.card.green .card-label{color:var(--mad-green-lt)}
+.card.teal .card-label{color:var(--mad-teal)}
+
+.card-title{
+  font-family:var(--font-display);font-size:1.5rem;
+  font-weight:700;color:var(--wheat);margin-bottom:1.4rem;
+}
+.card-rows{display:flex;flex-direction:column}
+.card-row{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:0.55rem 0;border-bottom:1px solid var(--border);font-size:0.92rem;
+}
+.card-row:last-child{border-bottom:none}
+.card-row-k{color:var(--muted)}
+.card-row-v{color:var(--wheat);font-weight:500}
+
+/* ─── PHASES ─────────────────────────────────────────────────── */
+.phases{margin:3rem 0}
+.phase{
+  display:grid;grid-template-columns:110px 1fr;
+  gap:2.5rem;padding:2.5rem 0;
+  border-bottom:1px solid var(--border);
+}
+.phase:last-child{border-bottom:none}
+@media(max-width:580px){.phase{grid-template-columns:1fr;gap:0.75rem}}
+.phase-tag{
+  font-family:var(--font-mono);font-size:0.58rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);padding-top:0.4rem;
+}
+.phase-tag strong{
+  display:block;font-family:var(--font-display);
+  font-size:1.3rem;font-weight:700;color:var(--gold);
+  margin-bottom:0.15rem;letter-spacing:0;
+}
+.phase-tag strong.red{color:var(--mad-red)}
+.phase-tag strong.green{color:var(--mad-green-lt)}
+.phase-body h4{
+  font-family:var(--font-body);font-size:1rem;font-weight:600;
+  color:var(--wheat);margin-bottom:0.6rem;letter-spacing:0;text-transform:none;
+}
+.phase-body p{font-size:0.95rem}
+.phase-note{
+  margin-top:0.9rem;font-family:var(--font-mono);font-size:0.68rem;
+  color:var(--muted);line-height:1.7;letter-spacing:0.02em;
+}
+
+/* ─── TABLE ──────────────────────────────────────────────────── */
+table{width:100%;border-collapse:collapse;margin:2rem 0;font-size:0.92rem}
+th{
+  font-family:var(--font-mono);font-size:0.56rem;letter-spacing:0.15em;
+  text-transform:uppercase;color:var(--muted);
+  text-align:left;padding:0.7rem 0.9rem;
+  border-bottom:1px solid var(--border);background:var(--soil-2);
+}
+td{
+  padding:0.9rem;border-bottom:1px solid var(--border);
+  color:var(--ink-2);vertical-align:top;
+}
+tr:last-child td{border-bottom:none}
+.td-num{font-family:var(--font-mono);font-size:0.85rem;color:var(--gold)}
+.td-red{font-family:var(--font-mono);font-size:0.85rem;color:var(--mad-red)}
+.td-green{font-family:var(--font-mono);font-size:0.85rem;color:var(--mad-green-lt)}
+.td-hi{color:var(--wheat);font-weight:500}
+
+/* ─── DOT LIST ───────────────────────────────────────────────── */
+.dot-list{list-style:none;margin:1.5rem 0}
+.dot-list li{
+  display:flex;gap:1.1rem;padding:0.75rem 0;
+  border-bottom:1px solid var(--border);
+  font-size:0.95rem;align-items:flex-start;
+}
+.dot-list li:last-child{border-bottom:none}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--gold);margin-top:0.68rem;flex-shrink:0}
+.dot.green{background:var(--mad-green-lt)}
+.dot.red{background:var(--mad-red)}
+.dot.teal{background:var(--mad-teal)}
+
+/* ─── TWO COL ────────────────────────────────────────────────── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+@media(max-width:580px){.two-col{grid-template-columns:1fr}}
+
+/* ─── RISK ───────────────────────────────────────────────────── */
+.risk-row{
+  display:grid;grid-template-columns:120px 1fr;
+  gap:1.2rem;padding:1rem 0;
+  border-bottom:1px solid var(--border);font-size:0.92rem;
+}
+.risk-row:last-child{border-bottom:none}
+.risk-key{color:var(--muted);font-size:0.82rem;padding-top:0.1rem}
+
+/* ─── FLOW ───────────────────────────────────────────────────── */
+.flow{display:flex;flex-direction:column;margin:2.5rem 0}
+.flow-step{display:flex;gap:1.3rem;padding:1.1rem 0;position:relative}
+.flow-step::before{
+  content:'';position:absolute;left:13px;top:3rem;bottom:-1.1rem;
+  width:1px;background:var(--border);
+}
+.flow-step:last-child::before{display:none}
+.flow-num{
+  width:28px;height:28px;border-radius:50%;
+  border:1px solid var(--gold-dk);background:var(--soil-2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:0.65rem;color:var(--gold);
+  flex-shrink:0;margin-top:0.1rem;
+}
+.flow-body h4{font-size:0.95rem;margin-bottom:0.25rem;color:var(--wheat);font-family:var(--font-body);font-weight:600;text-transform:none;letter-spacing:0}
+.flow-body p{font-size:0.85rem;color:var(--muted);margin:0}
+
+/* ─── OUTPUT CARDS ───────────────────────────────────────────── */
+.output-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2.5rem 0}
+@media(max-width:640px){.output-grid{grid-template-columns:1fr}}
+.output-card{
+  background:var(--mad-2);border:1px solid var(--mad-border);
+  padding:1.8rem;text-align:center;
+}
+.output-icon{font-size:2.2rem;margin-bottom:0.8rem}
+.output-title{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--mad-wheat);margin-bottom:0.5rem}
+.output-desc{font-size:0.82rem;color:var(--mad-muted);line-height:1.6}
+
+/* ─── BOM GRID ───────────────────────────────────────────────── */
+.bom-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:1px;background:var(--mad-border);border:1px solid var(--mad-border);margin:2.5rem 0;
+}
+.bom-item{background:var(--mad-2);padding:1.2rem 1.4rem}
+.bom-item-label{font-size:0.8rem;color:var(--mad-muted);margin-bottom:0.25rem}
+.bom-item-val{font-family:var(--font-mono);font-size:1.05rem;color:var(--mad-red);font-weight:500}
+.bom-item.total{background:var(--mad-3)}
+.bom-item.total .bom-item-val{color:var(--mad-green-lt)}
+
+/* ─── CALENDAR ───────────────────────────────────────────────── */
+.calendar{margin:2.5rem 0;overflow-x:auto}
+.cal-table{width:100%;border-collapse:collapse;min-width:580px}
+.cal-table th{
+  font-family:var(--font-mono);font-size:0.52rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--mad-muted);
+  padding:0.4rem 0.25rem;text-align:center;
+  border-bottom:1px solid var(--mad-border);font-weight:400;
+  background:var(--mad-2);
+}
+.cal-table td{padding:0.4rem 0.25rem;border-bottom:1px solid var(--mad-border);font-size:0.78rem}
+.cal-label{color:var(--mad-muted);white-space:nowrap;padding-right:1rem!important;font-size:0.78rem;background:var(--mad-2)}
+.cal-cell{text-align:center;background:var(--mad-bg)}
+.cal-a{background:rgba(201,150,30,0.15)}
+.cal-g{background:rgba(58,122,32,0.18)}
+.cal-r{background:rgba(196,64,32,0.16)}
+.cal-t{background:rgba(26,128,128,0.14)}
+.cdot{display:inline-block;width:7px;height:7px;border-radius:50%}
+.cdot.a{background:var(--gold)}
+.cdot.g{background:var(--mad-green-lt)}
+.cdot.r{background:var(--mad-red)}
+.cdot.t{background:var(--mad-teal)}
+
+/* ─── TRANCHE BLOCKS ─────────────────────────────────────────── */
+.tranche{
+  border:1px solid var(--border);
+  border-top:3px solid var(--gold);
+  padding:2rem;margin-bottom:0.5rem;
+  background:var(--soil-2);
+}
+.tranche.green{border-top-color:var(--mad-green-lt);background:var(--mad-2)}
+.tranche-head{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:1.5rem;flex-wrap:wrap;gap:0.5rem;
+}
+.tranche-label{
+  font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;
+}
+.tranche.green .tranche-label{color:var(--mad-green-lt)}
+.tranche-sub{font-size:0.82rem;color:var(--muted)}
+.tranche-total{
+  font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--gold);
+}
+.tranche.green .tranche-total{color:var(--mad-green-lt)}
+.evidence-gate{
+  display:flex;align-items:center;gap:12px;
+  font-size:0.85rem;color:var(--mad-muted);
+  padding:1rem 1.4rem;background:var(--mad-2);
+  border-left:3px solid var(--mad-green);
+  margin:0.5rem 0;
+}
+.gate-icon{font-size:1.2rem;flex-shrink:0}
+
+/* ─── TECH NOTE ──────────────────────────────────────────────── */
+.tech-note{
+  background:var(--soil-3);border:1px solid var(--border);
+  padding:1.8rem;margin-top:2.5rem;
+}
+.tech-note-label{
+  font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;
+}
+.tech-note p{font-size:0.85rem;color:var(--muted)}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer{
+  background:var(--soil-2);border-top:1px solid var(--border);
+  padding:2.5rem;text-align:center;
+}
+footer.mad{background:var(--mad-2);border-top-color:var(--mad-border)}
+footer p{
+  font-family:var(--font-mono);font-size:0.6rem;
+  letter-spacing:0.08em;color:var(--muted);line-height:1.9;margin:0;
+}
+
+/* ─── MAD TAB — different base colours ──────────────────────── */
+#tab-mad{background:var(--mad-bg)}
+#tab-mad section{border-bottom-color:var(--mad-border)}
+#tab-mad .eyebrow::after{background:var(--mad-border)}
+#tab-mad hr{border-top-color:var(--mad-border)}
+#tab-mad p{color:var(--mad-muted)}
+#tab-mad strong{color:var(--mad-wheat)}
+#tab-mad h1,#tab-mad h2,#tab-mad h3,#tab-mad h4,#tab-mad h5{color:var(--mad-wheat)}
+#tab-mad .hero-statement{color:var(--mad-wheat)}
+#tab-mad .pull-quote{color:var(--mad-ink);border-left-color:var(--mad-red)}
+#tab-mad .stat-row{background:var(--mad-border)}
+#tab-mad .sb{background:var(--mad-2)}
+#tab-mad table{border-color:var(--mad-border)}
+#tab-mad th{border-color:var(--mad-border);background:var(--mad-2)}
+#tab-mad td{border-color:var(--mad-border)}
+#tab-mad .phase{border-color:var(--mad-border)}
+#tab-mad .dot-list li{border-color:var(--mad-border)}
+#tab-mad .risk-row{border-color:var(--mad-border)}
+#tab-mad .card{background:var(--mad-2);border-color:var(--mad-border)}
+#tab-mad .card-row{border-color:var(--mad-border)}
+#tab-mad .card-row-k{color:var(--mad-muted)}
+#tab-mad .card-row-v{color:var(--mad-wheat)}
+#tab-mad .card-title{color:var(--mad-wheat)}
+#tab-mad .card-grid .card::before{background:var(--mad-red)}
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.cover-content>*{animation:fadeUp 0.7s ease both}
+.cover-content>*:nth-child(1){animation-delay:0.05s}
+.cover-content>*:nth-child(2){animation-delay:0.18s}
+.cover-content>*:nth-child(3){animation-delay:0.3s}
+.cover-content>*:nth-child(4){animation-delay:0.45s}
+.cover-content>*:nth-child(5){animation-delay:0.58s}
+
+@keyframes revealLine{from{width:0}to{width:100%}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav no-print">
+  <div class="nav-top">
+    <span class="nav-brand">Mirath Farms</span>
+    <a href="https://mirath-projections.vercel.app/" target="_blank">Projections Tool ↗</a>
+    <a href="mailto:mirathfarms@gmail.com">Contact</a>
+    <button class="nav-print" onclick="window.print()">Save PDF</button>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab(&#39;uae&#39;,this)">🇦🇪 &nbsp;UAE — Phase 1</button>
+    <button class="tab-btn mad" onclick="switchTab(&#39;mad&#39;,this)">🇲🇬 &nbsp;Madagascar — Biocontrol &amp; Aquaponics</button>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════ UAE ════════════ -->
+<div id="tab-uae" class="tab-panel active">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-texture"></div>
+    <div class="cover-vignette"></div>
+    <div class="cover-content">
+      <div class="cover-kicker">Confidential Investor Briefing · 2025</div>
+      <h1 class="cover-h1">Mirath<br><em>Farms</em></h1>
+      <p class="cover-tagline">UAE Regenerative Agricultural Cooperative — Phase 1 Investment Opportunity</p>
+      <div class="cover-stats">
+        <div class="cs"><div class="cs-label">Phase 1 Raise</div><div class="cs-val">AED 500K</div></div>
+        <div class="cs"><div class="cs-label">Year-1 Return</div><div class="cs-val">+30%</div></div>
+        <div class="cs"><div class="cs-label">Valuation Cap</div><div class="cs-val">AED 10M</div></div>
+        <div class="cs"><div class="cs-label">Floor Revenue</div><div class="cs-val">AED 1.26M</div></div>
+        <div class="cs"><div class="cs-label">Coverage Ratio</div><div class="cs-val">4.2×</div></div>
+        <div class="cs"><div class="cs-label">Min. Investment</div><div class="cs-val">AED 100K</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 OPPORTUNITY -->
+  <section>
+    <div class="container">
+      <div class="eyebrow">01 — The Opportunity</div>
+
+      <div class="hero-statement">
+        Own a piece of a<br>working UAE farm.<br>
+        <em>Exit in 12 months</em><br>with a 30% return.
+      </div>
+
+      <p>Mirath Farms is a UAE regenerative agricultural cooperative offering investors direct ownership of a productive food business. The cooperative begins with a controlled indoor lab producing exotic mushrooms and specialty chillies for the UAE hospitality sector. Production capacity is documented, channel pricing is verified, and a hotel offtake partnership is already in place.</p>
+
+      <p>Total cooperative capitalisation target is <strong>AED 10,000,000</strong> across three phases. Phase 1 raises AED 500,000 to establish the lab, prove the model, and generate the first investor returns — with full exit available at month 12.</p>
+
+      <div class="stat-row">
+        <div class="sb"><div class="sb-label">Phase 1 Raise</div><div class="sb-val">500K</div><div class="sb-sub">AED target</div></div>
+        <div class="sb"><div class="sb-label">Worst-case Revenue</div><div class="sb-val">1.26M</div><div class="sb-sub">AED documented floor</div></div>
+        <div class="sb"><div class="sb-label">Coverage Ratio</div><div class="sb-val">4.2×</div><div class="sb-sub">net profit vs obligation</div></div>
+        <div class="sb"><div class="sb-label">Option A Return</div><div class="sb-val">+30%</div><div class="sb-sub">guaranteed at month 12</div></div>
+      </div>
+
+      <div class="pull-quote">
+        "The farm does not need to perform well to return investor capital. It needs to operate."
+      </div>
+
+      <div class="callout">
+        <h4>Why now</h4>
+        <p>UAE food security policy is accelerating domestic agricultural investment. The hospitality sector provides an established offtake channel with verified pricing. Specialty mushrooms and chillies carry 3–5× the margin of commodity crops. Mirath Farms enters at the optimal moment — early enough for meaningful equity upside, with verified infrastructure that removes concept-stage risk.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 INVESTMENT -->
+  <section>
+    <div class="container">
+      <div class="eyebrow">02 — Your Investment</div>
+
+      <div class="hero-statement">
+        Two paths.<br>Both <em>structured to perform.</em>
+      </div>
+
+      <p>Phase 1 investors enter on a SAFE instrument, convertible at month 12 at a valuation cap of AED 10,000,000. At conversion, you choose — clean exit or long-term equity.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-label">Option A</div>
+          <div class="card-title">Clean Exit</div>
+          <div class="card-rows">
+            <div class="card-row"><span class="card-row-k">At month 12</span><span class="card-row-v">Capital + 30% returned</span></div>
+            <div class="card-row"><span class="card-row-k">AED 100K in</span><span class="card-row-v">AED 130,000 back</span></div>
+            <div class="card-row"><span class="card-row-k">AED 500K in</span><span class="card-row-v">AED 650,000 back</span></div>
+            <div class="card-row"><span class="card-row-k">Ongoing obligation</span><span class="card-row-v">None</span></div>
+            <div class="card-row"><span class="card-row-k">Best for</span><span class="card-row-v">Guaranteed return</span></div>
+          </div>
+        </div>
+        <div class="card b">
+          <div class="card-label">Option B</div>
+          <div class="card-title">Roll to Equity</div>
+          <div class="card-rows">
+            <div class="card-row"><span class="card-row-k">At month 12</span><span class="card-row-v">30% cash + equity</span></div>
+            <div class="card-row"><span class="card-row-k">Equity per AED 100K</span><span class="card-row-v">2% of cooperative</span></div>
+            <div class="card-row"><span class="card-row-k">Equity premium</span><span class="card-row-v">2× vs later rounds</span></div>
+            <div class="card-row"><span class="card-row-k">Ongoing income</span><span class="card-row-v">Annual profit share</span></div>
+            <div class="card-row"><span class="card-row-k">Best for</span><span class="card-row-v">Long-term upside</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <h4>Community profit-share — from AED 1,000</h4>
+        <p>Alongside equity, Mirath Farms offers a community profit-share instrument from AED 1,000. Participants receive a proportional share of documented farm revenue — targeting approximately 10% p.a. — with governance voting rights. Designed with a Shariah-alignment pathway as part of the long-term cooperative vision.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 FINANCIALS -->
+  <section>
+    <div class="container">
+      <div class="eyebrow">03 — Financial Projections</div>
+
+      <div class="hero-statement">
+        At the worst-case scenario,<br>
+        <em>the numbers still work.</em>
+      </div>
+
+      <p>All projections are built from verified production capacity and real channel pricing — not market assumptions. The floor scenario assumes 40% of documented capacity. The investor return obligation is fixed regardless of which scenario plays out.</p>
+
+      <table>
+        <thead><tr><th>Metric</th><th>Floor — 40% capacity</th><th>Midpoint</th><th>Ideal</th></tr></thead>
+        <tbody>
+          <tr><td class="td-hi">Year 1 Revenue</td><td class="td-num">AED 1,262,790</td><td class="td-num">AED 1,820,000</td><td class="td-num">AED 2,400,000+</td></tr>
+          <tr><td>Return obligation (500K raise)</td><td class="td-num">AED 150,000</td><td class="td-num">AED 150,000</td><td class="td-num">AED 150,000</td></tr>
+          <tr><td>Net profit coverage</td><td class="td-num">4.2×</td><td class="td-num">6.1×</td><td class="td-num">8×+</td></tr>
+          <tr><td>Option A — AED 100K invested</td><td class="td-num">AED 130,000</td><td class="td-num">AED 130,000</td><td class="td-num">AED 130,000</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <h4>What 4.2× coverage means in practice</h4>
+        <p>At 40% capacity — the absolute worst case — the cooperative generates AED 1,262,790. The total investor return obligation on a full AED 500,000 raise is AED 150,000. Net profit at the floor still covers that obligation more than four times over.</p>
+      </div>
+
+      <p style="font-size:0.85rem;color:var(--muted);margin-top:1.5rem;">Model your own return at any investment level at <a href="https://mirath-projections.vercel.app/">mirath-projections.vercel.app</a></p>
+    </div>
+  </section>
+
+  <!-- 04 ROADMAP -->
+  <section>
+    <div class="container">
+      <div class="eyebrow">04 — Development Roadmap</div>
+      <div class="hero-statement">Three phases.<br><em>One cooperative.</em></div>
+      <div class="phases">
+        <div class="phase">
+          <div class="phase-tag"><strong>Phase 1</strong>Current raise</div>
+          <div class="phase-body">
+            <h4>Spore &amp; Seed Lab — AED 500,000</h4>
+            <p>Indoor controlled lab · exotic mushrooms · specialty chillies · hotel offtake. Investors exit +30% at month 12 or roll to equity at 2× premium versus later rounds.</p>
+            <div class="phase-note">Min AED 100,000 · Full raise AED 500,000 · Conversion at month 12</div>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-tag"><strong>Phase 2</strong>Growth round</div>
+          <div class="phase-body">
+            <h4>Full Farm Site — AED 5,500,000</h4>
+            <p>Farm acquisition · poultry · orchards · composting. Phase 2 investors join a proven, operating business with live revenue. Community profit-share open from AED 1,000.</p>
+            <div class="phase-note">Phase 1 investors have first right of participation</div>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-tag"><strong>Phase 3</strong>Scale</div>
+          <div class="phase-body">
+            <h4>Creative Hub &amp; Ecosystem — AED 4,000,000</h4>
+            <p>Agri-tourism · education · brand export. Full cooperative governance. Profit distribution automated. Shariah compliance certification for profit-share instrument.</p>
+            <div class="phase-note">Total cooperative capitalisation AED 10,000,000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 GOVERNANCE -->
+  <section>
+    <div class="container">
+      <div class="eyebrow">05 — Governance</div>
+      <div class="hero-statement">Your rights are<br><em>enforced automatically.</em><br>Not by a solicitor's letter.</div>
+      <p>Every profit share, ownership transfer, and governance vote in Mirath Farms is recorded and executed automatically — not administered by a spreadsheet.</p>
+      <div class="two-col" style="margin-top:2.5rem;">
+        <div>
+          <h4 style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;">Member rights</h4>
+          <ul class="dot-list">
+            <li><span class="dot"></span><span>Annual profit share distributed automatically to all holders</span></li>
+            <li><span class="dot"></span><span>Voting rights on major asset decisions proportional to stake</span></li>
+            <li><span class="dot"></span><span>Consent rights on major asset sales</span></li>
+            <li><span class="dot"></span><span>Transparent ownership record — auditable at any time</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;">Founder obligations</h4>
+          <ul class="dot-list">
+            <li><span class="dot"></span><span>Founder equity time-locked — cannot be sold during lock-up</span></li>
+            <li><span class="dot"></span><span>Lock-up enforced in code — not a gentlemen's agreement</span></li>
+            <li><span class="dot"></span><span>All distributions permanently auditable</span></li>
+            <li><span class="dot"></span><span>Supermajority required for material decisions</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="tech-note">
+        <div class="tech-note-label">Infrastructure Note</div>
+        <p>Mirath Farms records ownership, governance rights, and profit distributions on the Stellar blockchain — a public, auditable financial network used by international development organisations and regulated financial institutions. All investors are identity-verified before receiving any position. No cryptocurrency knowledge is required.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 RISK -->
+  <section>
+    <div class="container">
+      <div class="eyebrow">06 — Risk Disclosure</div>
+      <div class="hero-statement"><em>Honest risks.</em><br>Honestly stated.</div>
+      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:2rem;">This document does not constitute a financial prospectus or regulated investment advice. All investment carries risk.</p>
+      <div class="risk-row"><div class="risk-key">Agricultural</div><div>Phase 1 uses indoor controlled lab production, reducing weather exposure. Equipment failure or crop disease could reduce output below floor projections.</div></div>
+      <div class="risk-row"><div class="risk-key">Execution</div><div>Mirath Farms is pre-revenue. All projections are based on documented capacity and verified pricing — not historical trading. Management execution risk is material.</div></div>
+      <div class="risk-row"><div class="risk-key">Regulatory</div><div>UAE regulatory treatment of digital cooperative ownership instruments is evolving. Qualified legal counsel will be engaged prior to any public offering.</div></div>
+      <div class="risk-row"><div class="risk-key">Liquidity</div><div>Cooperative equity is not publicly traded. Option A investors have a clean exit at month 12 regardless of secondary market conditions.</div></div>
+      <div class="risk-row"><div class="risk-key">Shariah</div><div>No Shariah compliance certification is claimed at this stage. Formal certification is a long-term goal to be pursued post-Phase 1 close.</div></div>
+    </div>
+  </section>
+
+  <!-- 07 CONTACT -->
+  <section>
+    <div class="container">
+      <div class="eyebrow">07 — Next Steps</div>
+      <div class="hero-statement">Ready to grow<br><em>with us?</em></div>
+      <div class="card-grid">
+        <div class="card"><div class="card-label">Email</div><a href="mailto:mirathfarms@gmail.com" style="font-family:var(--font-display);font-size:1.2rem;color:var(--wheat);display:block;margin-top:0.5rem;">mirathfarms@gmail.com</a></div>
+        <div class="card b"><div class="card-label">WhatsApp</div><a href="https://wa.me/971528369520" style="font-family:var(--font-display);font-size:1.2rem;color:var(--wheat);display:block;margin-top:0.5rem;">+971 (0) 528 369 520</a></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Mirath Farms Cooperative · UAE · mirathfarms@gmail.com · +971 (0) 528 369 520</p>
+    <p style="margin-top:0.5rem;">All investment carries risk. This document is for illustrative purposes only and does not constitute a financial prospectus or regulated investment advice. Governed by UAE law.</p>
+  </footer>
+
+</div><!-- /tab-uae -->
+
+
+<!-- ═════════════════════════════════ MADAGASCAR ════════════════ -->
+<div id="tab-mad" class="tab-panel">
+
+  <!-- COVER -->
+  <div class="cover" style="background:var(--mad-bg);">
+    <div class="cover-texture" style="background:repeating-linear-gradient(165deg,transparent 0,transparent 20px,rgba(58,122,32,0.04) 20px,rgba(58,122,32,0.04) 40px,transparent 40px,transparent 42px,rgba(196,64,32,0.03) 42px,rgba(196,64,32,0.03) 43px);"></div>
+    <div class="cover-vignette" style="background:radial-gradient(ellipse 80% 60% at 50% 80%,rgba(14,26,10,0.98) 30%,rgba(14,26,10,0.7) 60%,rgba(14,26,10,0.3) 100%);"></div>
+    <div class="cover-content">
+      <div class="cover-kicker" style="color:var(--mad-green);">Grant &amp; Impact Investment · 2026</div>
+      <h1 class="cover-h1" style="color:var(--mad-wheat);">Integrated<br><em style="color:var(--mad-red);font-style:italic;">Biocontrol</em></h1>
+      <p class="cover-tagline" style="color:var(--mad-muted);">Aquaponics for Malaria Reduction — Madagascar · A Closed-Loop Community Solution</p>
+      <div class="cover-stats" style="background:rgba(21,34,18,0.8);border-color:var(--mad-border);">
+        <div class="cs" style="border-color:var(--mad-border);"><div class="cs-label">Malaria cases (2023)</div><div class="cs-val" style="color:var(--mad-red);">3.97M</div></div>
+        <div class="cs" style="border-color:var(--mad-border);"><div class="cs-label">Larval reduction</div><div class="cs-val" style="color:var(--mad-red);">82–87%</div></div>
+        <div class="cs" style="border-color:var(--mad-border);"><div class="cs-label">Hub cost (build)</div><div class="cs-val" style="color:var(--mad-red);">$5,436</div></div>
+        <div class="cs" style="border-color:var(--mad-border);"><div class="cs-label">Annual OpEx</div><div class="cs-val" style="color:var(--mad-green-lt);">$750</div></div>
+        <div class="cs" style="border-color:var(--mad-border);"><div class="cs-label">Total funding ask</div><div class="cs-val" style="color:var(--mad-red);">$148K</div></div>
+        <div class="cs" style="border-color:var(--mad-border);"><div class="cs-label">Families per hub</div><div class="cs-val" style="color:var(--mad-green-lt);">10–20</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 PROBLEM -->
+  <section>
+    <div class="container">
+      <div class="eyebrow red">01 — The Problem</div>
+      <div class="hero-statement" style="color:var(--mad-wheat);">
+        16,000 people die<br>from malaria in Madagascar<br><em style="color:var(--mad-red);">every year.</em>
+      </div>
+      <p>Madagascar carries approximately 1.5% of the global malaria burden. The primary driver is Anopheles mosquito breeding in irrigated rice fields — which flood seasonally from November through April, coinciding precisely with peak malaria transmission.</p>
+
+      <div class="stat-row" style="background:var(--mad-border);">
+        <div class="sb" style="background:var(--mad-2);"><div class="sb-label">Cases in 2023</div><div class="sb-val red">3.97M</div><div class="sb-sub">malaria cases recorded</div></div>
+        <div class="sb" style="background:var(--mad-2);"><div class="sb-label">Deaths in 2023</div><div class="sb-val red">15,974</div><div class="sb-sub">annual fatalities</div></div>
+        <div class="sb" style="background:var(--mad-2);"><div class="sb-label">Post-cyclone spike</div><div class="sb-val red">+95%</div><div class="sb-sub">cases surge after flooding</div></div>
+        <div class="sb" style="background:var(--mad-2);"><div class="sb-label">Existing fixes</div><div class="sb-val red">Fail</div><div class="sb-sub">resistance, invasives, no sustainability</div></div>
+      </div>
+
+      <ul class="dot-list">
+        <li><span class="dot red"></span><span><strong>Insecticide spraying</strong> — costly, builds resistance, harms the very ecosystems it protects</span></li>
+        <li><span class="dot red"></span><span><strong>Gambusia mosquitofish</strong> — IUCN-listed as one of the 100 worst invasive species globally</span></li>
+        <li><span class="dot red"></span><span><strong>Bed nets</strong> — reduce exposure but do not suppress larvae at source</span></li>
+        <li><span class="dot red"></span><span><strong>Conventional rice-fish co-culture</strong> — fish die when fields dry, requiring costly annual restocking</span></li>
+      </ul>
+
+      <div class="callout red">
+        <h4>The gap this fills</h4>
+        <p>A closed-loop system removing larvae at source, using native species already present in Madagascar, running year-round as a community economic asset — not a one-off intervention. The hub is the asset. The rice field is a timed deployment zone.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 SOLUTION -->
+  <section>
+    <div class="container">
+      <div class="eyebrow green">02 — The Solution</div>
+      <div class="hero-statement" style="color:var(--mad-wheat);">
+        One solar hub.<br>Three outputs.<br><em style="color:var(--mad-green-lt);">Zero wasted inputs.</em>
+      </div>
+      <p>A self-sustaining, closed-loop aquaponics system that suppresses malaria at its source while generating food security and income for rural communities — year-round, off-grid, and self-financing after year one.</p>
+
+      <div class="output-grid">
+        <div class="output-card">
+          <div class="output-icon">🦟</div>
+          <div class="output-title">Malaria Biocontrol</div>
+          <div class="output-desc">Juvenile tilapia deployed into rice fields at flood season consume Anopheles larvae — achieving 82–87% larval reduction based on field trials.</div>
+        </div>
+        <div class="output-card">
+          <div class="output-icon">🐟</div>
+          <div class="output-title">Fish Harvest</div>
+          <div class="output-desc">Adult tilapia harvested twice yearly from the 3,000L grow-out system — 120–150 kg of high-quality protein per hub per year.</div>
+        </div>
+        <div class="output-card">
+          <div class="output-icon">🥬</div>
+          <div class="output-title">Vegetable Income</div>
+          <div class="output-desc">Fish wastewater feeds 20m² of deep-water grow beds year-round — 400–600 kg of leafy greens as the primary weekly cash income stream.</div>
+        </div>
+      </div>
+
+      <div class="pull-quote" style="border-left-color:var(--mad-green);color:var(--mad-ink);">
+        "Fish are always tank-based livestock. Field drying destroys no capital. The hub is the permanent asset."
+      </div>
+
+      <h3 style="font-family:var(--font-body);font-size:1rem;font-weight:600;color:var(--mad-wheat);letter-spacing:0;margin-bottom:1.2rem;">Annual deployment calendar</h3>
+      <div class="calendar">
+        <table class="cal-table">
+          <thead><tr>
+            <th style="text-align:left;">Activity</th>
+            <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
+            <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="cal-label">🐟 Fish grow-out</td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td></tr>
+            <tr><td class="cal-label">🥬 Vegetable beds</td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td><td class="cal-cell cal-g"><span class="cdot g"></span></td></tr>
+            <tr><td class="cal-label">🔄 Breeding pulse</td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell cal-a"><span class="cdot a"></span></td><td class="cal-cell cal-a"><span class="cdot a"></span></td><td class="cal-cell"></td><td class="cal-cell"></td></tr>
+            <tr><td class="cal-label">🐠 Juveniles in field</td><td class="cal-cell cal-r"><span class="cdot r"></span></td><td class="cal-cell cal-r"><span class="cdot r"></span></td><td class="cal-cell cal-r"><span class="cdot r"></span></td><td class="cal-cell cal-r"><span class="cdot r"></span></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell cal-r"><span class="cdot r"></span></td></tr>
+            <tr><td class="cal-label">🌾 Rice fields flooded</td><td class="cal-cell cal-t"><span class="cdot t"></span></td><td class="cal-cell cal-t"><span class="cdot t"></span></td><td class="cal-cell cal-t"><span class="cdot t"></span></td><td class="cal-cell cal-t"><span class="cdot t"></span></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell cal-t"><span class="cdot t"></span></td></tr>
+            <tr><td class="cal-label">🦟 Peak malaria risk</td><td class="cal-cell cal-r"><span class="cdot r"></span></td><td class="cal-cell cal-r"><span class="cdot r"></span></td><td class="cal-cell cal-r"><span class="cdot r"></span></td><td class="cal-cell cal-r"><span class="cdot r"></span></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell"></td><td class="cal-cell cal-r"><span class="cdot r"></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:0.75rem;color:var(--mad-muted);margin-top:0.5rem;">Breeding pulse triggered 8–10 weeks before November flooding. Fish are never dependent on the field for survival.</p>
+    </div>
+  </section>
+
+  <!-- 03 COSTING -->
+  <section>
+    <div class="container">
+      <div class="eyebrow red">03 — Costing</div>
+      <div class="hero-statement" style="color:var(--mad-wheat);">
+        <em style="color:var(--mad-red);">$5,436</em> to build.<br>
+        <em style="color:var(--mad-green-lt);">$750</em> a year to run.
+      </div>
+      <p>Every component costed from 2026 Madagascar market data. Local sourcing identified for all major items. Designed to be built and maintained by the community it serves.</p>
+
+      <div class="bom-grid">
+        <div class="bom-item"><div class="bom-item-label">Tanks &amp; Structures</div><div class="bom-item-val">$1,230</div></div>
+        <div class="bom-item"><div class="bom-item-label">Plumbing &amp; Water Movement</div><div class="bom-item-val">$575</div></div>
+        <div class="bom-item"><div class="bom-item-label">Solar Power System</div><div class="bom-item-val">$1,170</div></div>
+        <div class="bom-item"><div class="bom-item-label">Grow Beds &amp; Media</div><div class="bom-item-val">$200</div></div>
+        <div class="bom-item"><div class="bom-item-label">Biologics (Fish &amp; Seeds)</div><div class="bom-item-val">$700</div></div>
+        <div class="bom-item"><div class="bom-item-label">BSFL Feed System</div><div class="bom-item-val">$360</div></div>
+        <div class="bom-item"><div class="bom-item-label">Tools &amp; Consumables</div><div class="bom-item-val">$295</div></div>
+        <div class="bom-item total"><div class="bom-item-label">BoM Subtotal</div><div class="bom-item-val">$4,530</div></div>
+        <div class="bom-item"><div class="bom-item-label">Freight to Toamasina port</div><div class="bom-item-val">$350</div></div>
+        <div class="bom-item"><div class="bom-item-label">Import duty (est. 30%)</div><div class="bom-item-val">$502</div></div>
+        <div class="bom-item"><div class="bom-item-label">In-country transport</div><div class="bom-item-val">$120</div></div>
+        <div class="bom-item"><div class="bom-item-label">Installation + training</div><div class="bom-item-val">$142</div></div>
+        <div class="bom-item total"><div class="bom-item-label">Total incl. 20% contingency</div><div class="bom-item-val" style="color:var(--mad-red);">$5,436</div></div>
+        <div class="bom-item total"><div class="bom-item-label">Annual OpEx per hub</div><div class="bom-item-val">$750 / yr</div></div>
+      </div>
+
+      <div class="callout green">
+        <h4>What this means for scale</h4>
+        <p>At $5,436 per hub, the hardware cost is deliberately low — so that once the model is proven, rollout is fast and cheap. The $148,000 total funding request covers far more than hardware: a rigorous 18-month pilot across 3 hubs with full evaluation infrastructure, then 13 more hubs on proven evidence. See the Funding section below.</p>
+      </div>
+
+      <hr>
+      <h3 style="font-family:var(--font-body);font-size:1rem;font-weight:600;color:var(--mad-wheat);letter-spacing:0;margin-bottom:1.2rem;">Closed-loop feed system</h3>
+      <p>Imported fishmeal represents 60–80% of African aquaculture operating costs. This system cuts that to under 30% through three on-site feed sources:</p>
+      <ul class="dot-list">
+        <li><span class="dot green"></span><span><strong>Duckweed (Lemna minor) — 25% of diet, zero cost.</strong> Grown on fish wastewater. Doubles biomass every 2–3 days. Locally sourceable from nearby ponds.</span></li>
+        <li><span class="dot green"></span><span><strong>Black Soldier Fly Larvae (BSFL) — 35–50% of diet, near-zero cost.</strong> Fed on vegetable scraps and kitchen waste. 15–18 day colony cycle. BSFL frass doubles as organic fertiliser for rice fields.</span></li>
+        <li><span class="dot green"></span><span><strong>Vegetable trim — supplemental, zero cost.</strong> Harvest waste fed directly to fish. System waste approaches zero.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 04 ECOLOGICAL -->
+  <section>
+    <div class="container">
+      <div class="eyebrow teal">04 — Ecological Safety</div>
+      <div class="hero-statement" style="color:var(--mad-wheat);">
+        Sterile fish.<br>Contained system.<br><em style="color:var(--mad-teal);">Independent review.</em>
+      </div>
+      <p>The project uses Mozambique tilapia (<em>Oreochromis mossambicus</em>) — a species already present in Madagascar for decades. This is not a new introduction. Every fish deployed into rice fields is genetically sterile, certified by flow cytometry.</p>
+
+      <table>
+        <thead><tr><th>Risk</th><th>Level</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td class="td-hi">Competition with native species</td><td class="td-red">Moderate</td><td>Triploid fish cannot reproduce. Quarterly monitoring of natural waterways.</td></tr>
+          <tr><td class="td-hi">Habitat alteration</td><td class="td-red">Low–Moderate</td><td>Rice fields already disturbed by farming. Deployment limited to designated fields.</td></tr>
+          <tr><td class="td-hi">Escape to natural waterways</td><td class="td-green">Low</td><td>Fine-mesh tank screens · flood barrier design · triploid fish cannot establish feral populations</td></tr>
+          <tr><td class="td-hi">Hybridisation risk</td><td class="td-green">Very Low</td><td>All field fish are sterile triploids — genetic mixing is biologically impossible</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout teal">
+        <h4>Primary mitigation — triploid (sterile) fish</h4>
+        <p>All fish deployed into rice fields are genetically sterile — certified by flow cytometry on each production batch. Sterile fish cannot reproduce, eliminating any risk of feral population establishment. The diploid breeding colony never leaves the secure tank environment. Triploidisation is the same technique now deployed in national-level invasive fish control programmes in Thailand and elsewhere.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 COMMUNITY -->
+  <section>
+    <div class="container">
+      <div class="eyebrow green">05 — Community Model</div>
+      <div class="hero-statement" style="color:var(--mad-wheat);">
+        One hub.<br><em style="color:var(--mad-green-lt);">10–20 families.</em><br>Weekly cash income<br>from month one.
+      </div>
+
+      <table>
+        <thead><tr><th>Output</th><th>Frequency</th><th>Role in cooperative</th></tr></thead>
+        <tbody>
+          <tr><td class="td-hi">🥬 Vegetables</td><td>Weekly</td><td>Primary daily cash income for participating households</td></tr>
+          <tr><td class="td-hi">🐟 Adult tilapia</td><td>2× per year</td><td>Household protein + surplus for local market sale</td></tr>
+          <tr><td class="td-hi">🐠 Juvenile fish</td><td>Seasonal</td><td>Field biocontrol deployment — malaria suppression</td></tr>
+          <tr><td class="td-hi">🌱 BSFL frass</td><td>Ongoing</td><td>Organic fertiliser sold to rice farmers</td></tr>
+          <tr><td class="td-hi">🌿 Duckweed surplus</td><td>Ongoing</td><td>Poultry and duck supplemental feed</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout green">
+        <h4>Expected outcomes per hub after year 1</h4>
+        <p>80–87% Anopheles larval reduction · 120–150 kg tilapia produced · 400–600 kg vegetables yielded · 1–2 hectares of rice fields stocked per season · 90%+ water recycling · 10–20 families with weekly cash income from month one.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 ROADMAP -->
+  <section>
+    <div class="container">
+      <div class="eyebrow red">06 — Implementation Roadmap</div>
+      <div class="hero-statement" style="color:var(--mad-wheat);">24 months.<br>Three hubs.<br><em style="color:var(--mad-red);">Full evaluation.</em></div>
+      <div class="phases">
+        <div class="phase">
+          <div class="phase-tag"><strong class="red">Phase 1</strong>Months 1–6</div>
+          <div class="phase-body">
+            <h4>Pilot Setup</h4>
+            <p>Select 3 villages across 2–3 distinct sites in Alaotra-Mangoro or Vatovavy-Fitovinany — one designated as control-adjacent. Build each hub, establish triploid-certified breeding colony, train community managers using pictorial manuals in French and Malagasy. University partner begins baseline Anopheles larval density surveys.</p>
+            <div class="phase-note">Stakeholder engagement — Ministry of Health, Ministry of Agriculture, PSI Madagascar, CRS</div>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-tag"><strong class="red">Phase 2</strong>Months 7–18</div>
+          <div class="phase-body">
+            <h4>First Deployment Season</h4>
+            <p>Trigger breeding pulse at month 8. Deploy certified triploid fingerlings at November flooding. Monitor larval density fortnightly. First adult fish harvest and vegetable sales documented. Compare malaria incidence against control villages. University evaluation runs in parallel.</p>
+            <div class="phase-note">First health and income data collected — evidence base builds</div>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-tag"><strong class="green">Phase 3</strong>Months 19–24</div>
+          <div class="phase-body">
+            <h4>Evidence Gate &amp; Rollout</h4>
+            <p>Independent evaluation confirms outcomes. Evidence gate opens Tranche 2 funding. 13 additional hubs built using the replication toolkit. Rollout coordination with Ministry of Health and partner NGOs toward national programme application.</p>
+            <div class="phase-note">Target: Global Fund, USAID, UNITAID, WHO partnership for national scale</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 FUNDING -->
+  <section>
+    <div class="container">
+      <div class="eyebrow red">07 — Funding Request</div>
+      <div class="hero-statement" style="color:var(--mad-wheat);">
+        <em style="color:var(--mad-red);">$74K</em> proves it.<br>
+        <em style="color:var(--mad-green-lt);">$74K</em> scales it.
+      </div>
+      <p>The funding is structured in two equal tranches. The first buys rigorous evidence across 3 hubs with full evaluation infrastructure. The second is released only when that evidence meets the gate criteria, funding 13 additional hubs on a proven model.</p>
+
+      <!-- T1 -->
+      <div class="tranche" style="margin-top:2.5rem;">
+        <div class="tranche-head">
+          <div><div class="tranche-label">Tranche 1 — prove it</div><div class="tranche-sub">Months 1–18 · 3 hubs · full evaluation</div></div>
+          <div class="tranche-total">$74,000</div>
+        </div>
+        <table>
+          <thead><tr><th>Line item</th><th style="text-align:right;">Cost</th></tr></thead>
+          <tbody>
+            <tr><td>3 hub builds — hardware, freight, install</td><td class="td-num" style="text-align:right;">$16,308</td></tr>
+            <tr><td>Local field coordinator (18 months)</td><td class="td-num" style="text-align:right;">$15,000</td></tr>
+            <tr><td>Translator / community liaison (18 months)</td><td class="td-num" style="text-align:right;">$7,200</td></tr>
+            <tr><td>Baseline surveys + ecological monitoring</td><td class="td-num" style="text-align:right;">$12,000</td></tr>
+            <tr><td>University evaluation + independent reporting</td><td class="td-num" style="text-align:right;">$9,000</td></tr>
+            <tr><td>Community training + FR/MG pictorial manuals</td><td class="td-num" style="text-align:right;">$6,000</td></tr>
+            <tr><td>Travel, logistics + contingency</td><td class="td-num" style="text-align:right;">$8,492</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GATE -->
+      <div class="evidence-gate">
+        <span class="gate-icon">🔒</span>
+        <span>Tranche 2 released on evidence gate — university evaluation confirms 80%+ larval reduction and positive community income outcomes from the 3 pilot hubs</span>
+      </div>
+
+      <!-- T2 -->
+      <div class="tranche green">
+        <div class="tranche-head">
+          <div><div class="tranche-label">Tranche 2 — roll it out</div><div class="tranche-sub">Months 19–24 · 13 additional hubs</div></div>
+          <div class="tranche-total">$74,000</div>
+        </div>
+        <table>
+          <thead><tr><th>Line item</th><th style="text-align:right;">Cost</th></tr></thead>
+          <tbody>
+            <tr><td>13 additional hub builds (hardware + install)</td><td class="td-green" style="text-align:right;">$70,668</td></tr>
+            <tr><td>Replication toolkit + coordinator handover</td><td class="td-green" style="text-align:right;">$3,332</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="stat-row" style="margin-top:1.5rem;background:var(--mad-border);">
+        <div class="sb" style="background:var(--mad-2);"><div class="sb-label">Total ask</div><div class="sb-val red">$148K</div><div class="sb-sub">2 equal tranches</div></div>
+        <div class="sb" style="background:var(--mad-2);"><div class="sb-label">Total hubs</div><div class="sb-val green">16</div><div class="sb-sub">3 pilot + 13 rollout</div></div>
+        <div class="sb" style="background:var(--mad-2);"><div class="sb-label">Families reached</div><div class="sb-val green">160–320</div><div class="sb-sub">10–20 per hub</div></div>
+        <div class="sb" style="background:var(--mad-2);"><div class="sb-label">Cost per family</div><div class="sb-val teal">~$463</div><div class="sb-sub">health + food + income</div></div>
+      </div>
+
+      <div class="callout red" style="margin-top:2rem;">
+        <h4>Full documentation available</h4>
+        <p>Complete Bill of Materials · detailed costing model · full independent ecological review (grant appendix format) · pictorial construction guide — all available on request.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 CONTACT -->
+  <section>
+    <div class="container">
+      <div class="eyebrow red">08 — Contact</div>
+      <div class="hero-statement" style="color:var(--mad-wheat);">Get in touch.</div>
+      <p>To request the full BoM, ecological review, or costing model — or to discuss grant partnership, field visit coordination, or impact investment — contact us directly.</p>
+      <div class="card-grid" style="margin-top:2rem;">
+        <div class="card red" style="background:var(--mad-2);border-color:var(--mad-border);">
+          <div class="card-label">Email</div>
+          <a href="mailto:mirathfarms@gmail.com" style="font-family:var(--font-display);font-size:1.2rem;color:var(--mad-wheat);display:block;margin-top:0.5rem;">mirathfarms@gmail.com</a>
+        </div>
+        <div class="card green" style="background:var(--mad-2);border-color:var(--mad-border);">
+          <div class="card-label">WhatsApp</div>
+          <a href="https://wa.me/971528369520" style="font-family:var(--font-display);font-size:1.2rem;color:var(--mad-wheat);display:block;margin-top:0.5rem;">+971 (0) 528 369 520</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mad">
+    <p>Mirath Farms · Madagascar Biocontrol &amp; Aquaponics Project · mirathfarms@gmail.com · +971 (0) 528 369 520</p>
+    <p style="margin-top:0.5rem;">This document is for grant and impact investment purposes. All cost and yield figures based on 2026 Madagascar market data and published field trial results. Full BoM, ecological review, and costing model available on request.</p>
+  </footer>
+
+</div><!-- /tab-mad -->
+
+<script>
+function switchTab(tab,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+
+</body></html>
